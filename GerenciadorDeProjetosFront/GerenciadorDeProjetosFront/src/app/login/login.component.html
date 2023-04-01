@@ -1,0 +1,16 @@
+<table class="table table-striped">
+    <thead>
+        <th>Id</th>
+        <th>UserLogin</th>
+        <th>UserPass</th>
+        <th>Email</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of loginList$|async">
+            <td>{{user.id}}</td>
+            <td>{{user.userLogin}}</td>
+            <td>{{user.userPass}}</td>
+            <td>{{user.email}}</td>
+        </tr>
+    </tbody>
+</table>

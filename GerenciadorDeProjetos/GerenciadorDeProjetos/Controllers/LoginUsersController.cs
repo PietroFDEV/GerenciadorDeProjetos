@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GerenciadorDeProjetos;
 using GerenciadorDeProjetos.Data;
+using NuGet.Protocol.Plugins;
 
 namespace GerenciadorDeProjetos.Controllers
 {
@@ -48,6 +49,13 @@ namespace GerenciadorDeProjetos.Controllers
             }
 
             return loginUser;
+        }
+
+        [HttpGet("{login}/{pass}")]
+        public bool ExistsUser(string login, string pass)
+        {
+            return (_context.loginUsers?.Any(e => e.UserLogin == login && e.UserPass == pass)).GetValueOrDefault();
+
         }
 
         // PUT: api/LoginUsers/5

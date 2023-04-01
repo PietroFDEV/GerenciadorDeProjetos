@@ -28,8 +28,8 @@ export class ApiGerenciadorService {
     return this.http.delete(this.gerenciadorAPIUrl + `/LoginUsers/${id}`)
   }
 
-  existsUser(id:number):Observable<boolean> {
-    return this.http.get<boolean>(this.gerenciadorAPIUrl + `/LoginUsers/${id}`)
+  existsUser(login:string, pass:string):Observable<boolean> {
+    return this.http.get<boolean>(this.gerenciadorAPIUrl + `/LoginUsers/${login}/${pass}`)
   }
 
   //LISTA CRUD

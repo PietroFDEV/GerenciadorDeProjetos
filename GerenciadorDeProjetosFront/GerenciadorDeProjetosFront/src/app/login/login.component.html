@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<!-- <table class="table table-striped">
     <thead>
         <th>Id</th>
         <th>UserLogin</th>
@@ -13,4 +13,34 @@
             <td>{{user.email}}</td>
         </tr>
     </tbody>
-</table>
+</table> -->
+<div class="container mt-5" *ngIf="mostrarLogin">
+  <div class="form-group">
+    <label for="login">Nome Login</label>
+    <input type="text" class="form-control" name="login" id="login" placeholder="Nome login" [(ngModel)]="login" [ngModelOptions]="{standalone: true}">
+</div>
+  <div class="form-group">
+    <label for="pass">Senha</label>
+    <input type="password" class="form-control" name="pass" id="pass"  placeholder="Senha" [(ngModel)]="pass" [ngModelOptions]="{standalone: true}">
+</div>
+<p *ngIf="erroLogin" style="color: red;">Login nao encontrado</p>
+  <button type="submit" (click)="Login()" class="btn btn-primary m-2">Logar</button>
+  <button type="submit" (click)="CreateLogin()" class="btn btn-secondary m-2">Cadastrar</button>
+</div>
+
+<div class="container mt-5" *ngIf="!mostrarLogin && mostrarCreateLogin">
+    <div class="form-group">
+        <label for="login">Email</label>
+        <input type="text" class="form-control" name="login" id="login" placeholder="Email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+        <label for="login">Nome Login</label>
+        <input type="text" class="form-control" name="login" id="login" placeholder="Nome login" [(ngModel)]="login" [ngModelOptions]="{standalone: true}">
+    </div>
+      <div class="form-group">
+        <label for="pass">Senha</label>
+        <input type="password" class="form-control" name="pass" id="pass"  placeholder="Senha" [(ngModel)]="pass" [ngModelOptions]="{standalone: true}">
+    </div>
+    <button type="submit" (click)="CreateUser()" class="btn btn-primary m-2">Criar</button>
+    <button type="submit" (click)="VoltarCadastro()" class="btn btn-secondary m-2">Voltar</button>
+</div>

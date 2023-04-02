@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { loginModel } from 'src/model/loginModel';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class ApiGerenciadorService {
     return this.http.get<any>(this.gerenciadorAPIUrl + '/LoginUsers');
   }
 
-  addUser(data:any) {
-    return this.http.post(this.gerenciadorAPIUrl + '/LoginUsers', data)
+  addUser(data:any):Observable<loginModel> {
+    return this.http.post<loginModel>(this.gerenciadorAPIUrl + '/LoginUsers', data)
   }
 
   updateUser(id:number, data:any) {

@@ -50,6 +50,7 @@ namespace GerenciadorDeProjetos.Controllers
             return cardList;
         }
 
+
         // PUT: api/CardLists/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -119,6 +120,12 @@ namespace GerenciadorDeProjetos.Controllers
         private bool CardListExists(int id)
         {
             return (_context.CardList?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        [HttpGet("GetCardListByUserId/{UserId}")]
+        public async Task<ActionResult<IEnumerable<CardList>>> GetCardListByUserId(int UserId)
+        {
+            return await _context.CardList.Where(d => d.UserId == UserId).ToListAsync();
         }
     }
 }

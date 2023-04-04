@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiGerenciadorService } from '../api-gerenciador.service';
+import { Observable } from 'rxjs';
+import { ListaModel } from 'src/model/listaModel';
+import { CardModel } from 'src/model/cardModel';
 
 @Component({
   selector: 'app-gerenciador-home',
@@ -7,11 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GerenciadorHomeComponent implements OnInit {
 
-  mostrarLogin:boolean = true;
-  mostrarGerenciador:boolean = true;
+  ListaList$!:Observable<ListaModel[]>;
+  CardList$!:Observable<CardModel[]>;
 
+  constructor(private service:ApiGerenciadorService) {}
+
+  userId: number = 1;
 
   ngOnInit(): void {
-    
+    this.ListaList$ = this.service.getList();
+    this.CardList$ = this.service.getCardList(this.userId);
+    console.log(this.CardList$);
   }
+
+
 }

@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   mostrarLogin:boolean = true;
   mostrarCreateLogin: boolean = false;
+  mostrarGerenciador: boolean = false;
   erroLogin: boolean = false;
   filtroLogin!:loginModel;
 
@@ -35,6 +36,8 @@ export class LoginComponent implements OnInit {
       .subscribe(result => {
         if(result) {
           this.mostrarLogin = false;
+          this.erroLogin = false;
+          this.mostrarGerenciador = true;
         }else {
           this.erroLogin = true;
         }
@@ -42,6 +45,7 @@ export class LoginComponent implements OnInit {
   }
 
   public CreateLogin() {
+    this.erroLogin = false;
     this.mostrarLogin = false;
     this.mostrarCreateLogin = true;
   }
@@ -51,24 +55,23 @@ export class LoginComponent implements OnInit {
       userLogin: this.login,
       userPass: this.pass,
       email: this.email 
-
     }
     this.service.addUser(loginUser)
       .subscribe(result => {
         if(result.id != 0){          
-          alert("Usuario criado")
-          this.mostrarLogin = true;
+          alert("Usuario criado");
           this.mostrarCreateLogin = false;
+          this.mostrarLogin = true;
         }
        else{
-        alert("ERRO")
+        alert("ERRO");
        }
       })
   }
 
   public VoltarCadastro() {
-    this.mostrarLogin = true;
     this.mostrarCreateLogin = false;
+    this.mostrarLogin = true;
   }
   
 }

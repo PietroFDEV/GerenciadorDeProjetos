@@ -1,4 +1,11 @@
-<div class="container mt-5" *ngIf="!mostrarLogin && mostrarGerenciador">
-    <p>gerenciador-home works!</p>
+<div class="d-flex flex-row bd-highlight m-5 align-items-start">
+  <div class="list-group p-2 bd-highlight" *ngFor="let item of ListaList$|async">
+    <div href="#" class="list-group-item list-group-item-actio" aria-current="true" >
+      {{ item.listName }}
+    </div>
+    <div href="#" class="list-group-item list-group-item-actio" aria-current="true" *ngFor="let card of CardList$|async">
+      <p>oi</p>
+    </div>
+  </div>
 
 </div>

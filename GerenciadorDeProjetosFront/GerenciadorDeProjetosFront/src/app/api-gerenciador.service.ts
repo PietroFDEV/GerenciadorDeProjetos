@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CardModel } from 'src/model/cardModel';
 import { loginModel } from 'src/model/loginModel';
 
 @Injectable({
@@ -8,7 +9,13 @@ import { loginModel } from 'src/model/loginModel';
 })
 export class ApiGerenciadorService {
 
-  readonly gerenciadorAPIUrl = "https://localhost:7157/api";
+  // [HttpGet("GetCardListByUserId/{UserId}")]
+  // public async Task<ActionResult<IEnumerable<CardList>>> GetCardListByUserId(int UserId)
+  // {
+  //     return await _context.CardList.Where(d => d.UserId == UserId).ToListAsync();
+  // }
+
+  readonly gerenciadorAPIUrl = "http://localhost:5000/api";
 
   constructor(private http:HttpClient) { }
 
@@ -65,5 +72,10 @@ export class ApiGerenciadorService {
   
     deleteCard(id:number) {
       return this.http.delete(this.gerenciadorAPIUrl + `/CardList/${id}`)
+    }
+
+    getCardList(userId:number):Observable<CardModel[]> {
+      console.log(this.http.get<CardModel[]>(this.gerenciadorAPIUrl + `/CardLists/GetCardListByUserId/${userId}`));
+      return this.http.get<CardModel[]>(this.gerenciadorAPIUrl + `/CardLists/GetCardListByUserId/${userId}`);
     }
 }

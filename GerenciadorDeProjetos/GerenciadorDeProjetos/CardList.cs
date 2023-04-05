@@ -14,7 +14,8 @@ namespace GerenciadorDeProjetos
         public DateTime Deadline { get; set; }
         public bool Priority { get; set; }
         public int UserId { get; set; }
-        public LoginUser? User { get; set; }
         public int ListId { get; set; }
+        public LoginUser? User { get; set; }
+        
     }
 }

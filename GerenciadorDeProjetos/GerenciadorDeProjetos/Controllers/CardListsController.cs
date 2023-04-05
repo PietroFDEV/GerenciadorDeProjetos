@@ -122,10 +122,10 @@ namespace GerenciadorDeProjetos.Controllers
             return (_context.CardList?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        [HttpGet("GetCardListByUserId/{UserId}")]
-        public async Task<ActionResult<IEnumerable<CardList>>> GetCardListByUserId(int UserId)
+        [HttpGet("GetCardListByUserId/{UserId}/{ListId}")]
+        public async Task<ActionResult<IEnumerable<CardList>>> GetCardListByUserId(int UserId, int ListId)
         {
-            return await _context.CardList.Where(d => d.UserId == UserId).ToListAsync();
+            return await _context.CardList.Where(d => d.UserId == UserId && d.ListId == ListId).ToListAsync();
         }
     }
 }

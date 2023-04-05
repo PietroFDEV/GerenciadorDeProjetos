@@ -20,7 +20,7 @@ export class ApiGerenciadorService {
   constructor(private http:HttpClient) { }
 
   //LOGIN USUARIO CRUD
-  getUser():Observable<any[]> {
+  getUser():Observable<loginModel[]> {
     return this.http.get<any>(this.gerenciadorAPIUrl + '/LoginUsers');
   }
 
@@ -34,6 +34,10 @@ export class ApiGerenciadorService {
 
   deleteUser(id:number) {
     return this.http.delete(this.gerenciadorAPIUrl + `/LoginUsers/${id}`)
+  }
+
+  getUserById(id:number):Observable<loginModel> {
+    return this.http.get<loginModel>(this.gerenciadorAPIUrl + `/LoginUsers/${id}`)
   }
 
   existsUser(login:string, pass:string):Observable<boolean> {
@@ -74,8 +78,7 @@ export class ApiGerenciadorService {
       return this.http.delete(this.gerenciadorAPIUrl + `/CardList/${id}`)
     }
 
-    getCardList(userId:number):Observable<CardModel[]> {
-      console.log(this.http.get<CardModel[]>(this.gerenciadorAPIUrl + `/CardLists/GetCardListByUserId/${userId}`));
-      return this.http.get<CardModel[]>(this.gerenciadorAPIUrl + `/CardLists/GetCardListByUserId/${userId}`);
+    getCardList(userId:number, listId:number):Observable<CardModel[]> {
+      return this.http.get<CardModel[]>(this.gerenciadorAPIUrl + `/CardLists/GetCardListByUserId/${userId}/${listId}`);
     }
 }

@@ -3,6 +3,9 @@ import { ApiGerenciadorService } from '../api-gerenciador.service';
 import { Observable } from 'rxjs';
 import { ListaModel } from 'src/model/listaModel';
 import { CardModel } from 'src/model/cardModel';
+import { DatePipe } from '@angular/common';
+import { LoginComponent } from '../login/login.component';
+import { loginModel } from 'src/model/loginModel';
 
 @Component({
   selector: 'app-gerenciador-home',
@@ -13,16 +16,21 @@ export class GerenciadorHomeComponent implements OnInit {
 
   ListaList$!:Observable<ListaModel[]>;
   CardList$!:Observable<CardModel[]>;
+  UserList$!:Observable<loginModel[]>;
 
-  constructor(private service:ApiGerenciadorService) {}
+  constructor(private service:ApiGerenciadorService, public datepipe: DatePipe) {}
 
-  userId: number = 1;
+  userId:number = 1;
+  listId:number = 1;
 
   ngOnInit(): void {
-    this.ListaList$ = this.service.getList();
-    this.CardList$ = this.service.getCardList(this.userId);
-    console.log(this.CardList$);
+    this.Iniciar();
+    
   }
-
-
+  
+  public Iniciar() {
+    this.ListaList$ = this.service.getList();
+    this.UserList$ = this.service.getUser();
+    this.CardList$ = this.service.getCardList(this.userId, this.listId);
+  }
 }

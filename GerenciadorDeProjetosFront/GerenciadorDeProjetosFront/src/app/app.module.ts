@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { GerenciadorHomeComponent } from './gerenciador-home/gerenciador-home.component';
 import { ApiGerenciadorService } from './api-gerenciador.service';
 import { LoginComponent } from './login/login.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ApiGerenciadorService],
+  providers: [ApiGerenciadorService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

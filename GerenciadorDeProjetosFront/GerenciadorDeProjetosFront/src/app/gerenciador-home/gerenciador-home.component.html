@@ -1,10 +1,10 @@
 <div class="d-flex flex-row bd-highlight m-5 align-items-start">
   <div class="list-group p-2 bd-highlight" *ngFor="let item of ListaList$|async">
-    <div href="#" class="list-group-item list-group-item-actio list-group-item-primary" aria-current="true" >
+    <div href="#" class="list-group-item list-group-item-primary" aria-current="true" >
       {{ item.listName }}
     </div>
-    <div href="#" class="list-group-item list-group-item-actio" aria-current="true" *ngFor="let card of CardList$|async">
-      <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div href="#" class="list-group-item" aria-current="true">
+      <li class="list-group-item d-flex list-group-item-action justify-content-between align-items-start" *ngFor="let card of CardList$|async">
         <div class="ms-2 me-auto">
           <div class="fw-bold">{{ card.name }}</div>
           {{ card.text }}
@@ -13,6 +13,11 @@
           <span class="badge bg-primary rounded-pill">{{ card.createDate | date:'dd-MM-yyyy' }}</span>  
           <span class="badge bg-danger rounded-pill ms-2">{{ card.deadline | date:'dd-MM-yyyy' }}</span>  
         </div>
+      </li>
+      <li class="list-group-item d-flex list-group-item-action justify-content-between align-items-start">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus mx-auto" viewBox="0 0 16 16">
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
       </li>
     </div>
   </div>

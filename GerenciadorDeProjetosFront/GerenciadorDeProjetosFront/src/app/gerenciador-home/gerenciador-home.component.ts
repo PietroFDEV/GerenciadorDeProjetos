@@ -33,4 +33,10 @@ export class GerenciadorHomeComponent implements OnInit {
     this.UserList$ = this.service.getUser();
     this.CardList$ = this.service.getCardList(this.userId, this.listId);
   }
+
+  public CreateList() {
+    this.service.addList().subscribe(result => {
+      result.
+    });
+  }
 }

@@ -7,6 +7,7 @@ export interface CardModel
     text: string,
     createDate: Date,
     deadline: Date,
+    haveDeadline: boolean,
     priority: boolean,
     userId: number,
     listId: number,

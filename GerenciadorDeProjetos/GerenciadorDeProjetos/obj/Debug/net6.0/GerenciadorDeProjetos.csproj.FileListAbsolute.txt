@@ -292,3 +292,4 @@ C:\Users\Gamer\Documents\GitHub\GerenciadorDeProjetos\GerenciadorDeProjetos\Gere
 C:\Users\Gamer\Documents\GitHub\GerenciadorDeProjetos\GerenciadorDeProjetos\GerenciadorDeProjetos\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\Gamer\Documents\GitHub\GerenciadorDeProjetos\GerenciadorDeProjetos\GerenciadorDeProjetos\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Gamer\Documents\GitHub\GerenciadorDeProjetos\GerenciadorDeProjetos\GerenciadorDeProjetos\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\11263566979\Documents\GitHub\GerenciadorDeProjetos\GerenciadorDeProjetos\GerenciadorDeProjetos\obj\Debug\net6.0\GerenciadorDeProjetos.pdb

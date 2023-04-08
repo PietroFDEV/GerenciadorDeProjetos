@@ -13,6 +13,7 @@ namespace GerenciadorDeProjetos
         public DateTime CreateDate { get; set; }
         public DateTime Deadline { get; set; }
         public bool Priority { get; set; }
+        public bool HaveDeadline { get; set; }
         public int UserId { get; set; }
         public int ListId { get; set; }
         public LoginUser? User { get; set; }

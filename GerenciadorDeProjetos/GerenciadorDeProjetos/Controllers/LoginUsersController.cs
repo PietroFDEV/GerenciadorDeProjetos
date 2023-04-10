@@ -55,7 +55,6 @@ namespace GerenciadorDeProjetos.Controllers
         public bool ExistsUser(string login, string pass)
         {
             return (_context.loginUsers?.Any(e => e.UserLogin == login && e.UserPass == pass)).GetValueOrDefault();
-
         }
 
         // PUT: api/LoginUsers/5

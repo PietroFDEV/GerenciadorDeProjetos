@@ -1,46 +1,80 @@
-<!-- <table class="table table-striped">
-    <thead>
-        <th>Id</th>
-        <th>UserLogin</th>
-        <th>UserPass</th>
-        <th>Email</th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let user of loginList$|async">
-            <td>{{user.id}}</td>
-            <td>{{user.userLogin}}</td>
-            <td>{{user.userPass}}</td>
-            <td>{{user.email}}</td>
-        </tr>
-    </tbody>
-</table> -->
-<div class="container mt-5" *ngIf="mostrarLogin">
-  <div class="form-group">
-    <label for="login">Nome Login</label>
-    <input type="text" class="form-control" name="login" id="login" placeholder="Nome login" [(ngModel)]="login" [ngModelOptions]="{standalone: true}">
-</div>
-  <div class="form-group">
-    <label for="pass">Senha</label>
-    <input type="password" class="form-control" name="pass" id="pass"  placeholder="Senha" [(ngModel)]="pass" [ngModelOptions]="{standalone: true}">
-</div>
-<p *ngIf="erroLogin" style="color: red;">Login nao encontrado</p>
-  <button type="submit" (click)="Login()" class="btn btn-primary m-2">Logar</button>
-  <button type="submit" (click)="CreateLogin()" class="btn btn-secondary m-2">Cadastrar</button>
-</div>
+<!-----------------------------------------LOGIN-------------------------------------->
+  <div class="container py-5 h-100"   *ngIf="mostrarLogin">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
 
-<div class="container mt-5" *ngIf="!mostrarLogin && mostrarCreateLogin">
-    <div class="form-group">
-        <label for="login">Email</label>
-        <input type="text" class="form-control" name="login" id="login" placeholder="Email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+            <div class="mb-md-5 mt-md-4 pb-5">
+
+              <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+              <p class="text-white-50 mb-5">Logue com seu Login e Senha!</p>
+
+              <div class="form-outline form-white mb-4">
+                <input type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="login" [ngModelOptions]="{standalone: true}"/>
+                <label class="form-label" for="typeEmailX">Login</label>
+              </div>
+
+              <div class="form-outline form-white mb-4">
+                <input type="password" id="typePasswordX" class="form-control form-control-lg" [(ngModel)]="pass" [ngModelOptions]="{standalone: true}"/>
+                <label class="form-label" for="typePasswordX">Senha</label>
+                <p *ngIf="erroLogin" style="color: red;">Login ou Senha nao encontrado</p>
+              </div>
+
+
+              <button class="btn btn-outline-light btn-lg px-5" type="submit" (click)="Login()">Login</button>
+
+            </div>
+
+            <div>
+              <p class="mb-0">Não tem conta? <a href="#!" class="text-white-50 fw-bold" (click)="CreateLogin()">Cadastrar</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-        <label for="login">Nome Login</label>
-        <input type="text" class="form-control" name="login" id="login" placeholder="Nome login" [(ngModel)]="login" [ngModelOptions]="{standalone: true}">
+  </div>
+
+<!----------------------------------CREATE LOGIN-------------------------------------->
+  <div class="container py-5 h-100" *ngIf="!mostrarLogin && mostrarCreateLogin">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <div class="mb-md-5 mt-md-4 pb-5">
+
+              <h2 class="fw-bold mb-2 text-uppercase">Cadatro</h2>
+              <p class="text-white-50 mb-5">Crie seu cadastro!</p>
+
+              <div class="form-outline form-white mb-4">
+                <input type="email" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"/>
+                <label class="form-label" for="typeEmailX">Email</label>
+              </div>
+
+              <div class="form-outline form-white mb-4">
+                <input type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="login" [ngModelOptions]="{standalone: true}"/>
+                <label class="form-label" for="typeEmailX">Login</label>
+              </div>
+
+              <div class="form-outline form-white mb-4">
+                <input type="password" id="typePasswordX" class="form-control form-control-lg" [(ngModel)]="pass" [ngModelOptions]="{standalone: true}"/>
+                <label class="form-label" for="typePasswordX">Senha</label>
+                <p *ngIf="loginCriado" style="color: rgb(1, 218, 1);">Usuário Cadastrado</p>
+              </div>
+
+
+              <button class="btn btn-outline-light btn-lg px-5 m-lg-3" type="submit" (click)="CreateUser()">Criar</button>
+              <button class="btn btn-outline-light btn-lg px-5 m-lg-3" type="submit" (click)="VoltarCadastro()">Voltar</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-      <div class="form-group">
-        <label for="pass">Senha</label>
-        <input type="password" class="form-control" name="pass" id="pass"  placeholder="Senha" [(ngModel)]="pass" [ngModelOptions]="{standalone: true}">
-    </div>
-    <button type="submit" (click)="CreateUser()" class="btn btn-primary m-2">Criar</button>
-    <button type="submit" (click)="VoltarCadastro()" class="btn btn-secondary m-2">Voltar</button>
-</div>
+  </div>
+
+<!---------------------------------Gerenciador--------------------------------------->
+  <app-gerenciador-home *ngIf="!mostrarLogin && mostrarGerenciador"></app-gerenciador-home>

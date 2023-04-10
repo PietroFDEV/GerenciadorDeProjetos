@@ -1,20 +1,63 @@
-<div class="d-flex flex-row bd-highlight m-5 align-items-start">
+<!--------------------------------------NAV BAR-------------------------------------->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand float-end" href="#">
+      <img src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-pokemon-go-game-icon-png-22.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill"> 
+    </a>
+  </div>
+</nav>
+<!--------------------------------------LISTAS-------------------------------------->
+<div class="d-flex flex-row bd-highlight p-5 align-items-start">
   <div class="list-group p-2 bd-highlight" *ngFor="let item of ListaList$|async">
-    <div href="#" class="list-group-item list-group-item-actio list-group-item-primary" aria-current="true" >
+    <div href="#" class="list-group-item list-group-item-primary" aria-current="true" >
       {{ item.listName }}
     </div>
-    <div href="#" class="list-group-item list-group-item-actio" aria-current="true" *ngFor="let card of CardList$|async">
-      <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div href="#" class="list-group-item" aria-current="true">
+      <li class="list-group-item d-flex list-group-item-action justify-content-between align-items-start" *ngFor="let card of CardList$|async" (click)="ModalCreate()">
         <div class="ms-2 me-auto">
-          <div class="fw-bold">{{ card.name }}</div>
+          <div class="fw-bold">{{ card.name }}</div>   
           {{ card.text }}
         </div>
-        <div class="ms-5 me-auto d-flex justify-content-around align-items-end">
+        <div class="ms-5 me-auto d-flex flex-column justify-content-around align-items-end gap-1">
           <span class="badge bg-primary rounded-pill">{{ card.createDate | date:'dd-MM-yyyy' }}</span>  
-          <span class="badge bg-danger rounded-pill ms-2">{{ card.deadline | date:'dd-MM-yyyy' }}</span>  
+          <span class="badge bg-danger" *ngIf="card.haveDeadline">{{ card.deadline | date:'dd-MM-yyyy' }}</span>  
         </div>
+      </li>
+      <li class="mt-2 d-flex list-group-item-action justify-content-between align-items-start" (click)="ModalCreate()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="8%" height="8%" fill="currentColor" class="bi bi-plus mx-auto" viewBox="0 0 16 16">
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
       </li>
     </div>
   </div>
+  <div href="#" class="d-flex flex-row bd-highlight p-5 align-items-start" aria-current="true" >
+    <button type="button" class="btn btn-success btn-lg btn-block" (click)="ModalCreate()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor" class="bi bi-plus mx-auto" viewBox="0 0 16 16">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+      </svg>
+    </button>
+  </div>
+</div>
 
+<!-- Button Modal -->
+<button type="button" id="inputModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ModalCreate()">
+  Launch demo modal
+</button>
+<!-- MODAL CREATE, DELETE, SHOW-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -22,6 +22,7 @@ export class GerenciadorHomeComponent implements OnInit {
 
   userId:number = 1;
   listId:number = 1;
+  criarModal:boolean = false;
 
   ngOnInit(): void {
     this.Iniciar();
@@ -33,4 +34,14 @@ export class GerenciadorHomeComponent implements OnInit {
     this.UserList$ = this.service.getUser();
     this.CardList$ = this.service.getCardList(this.userId, this.listId);
   }
+
+  public ModalCreate() {
+    this.criarModal = true;
+  }
+
+  // public CreateList() {
+  //   this.service.addList().subscribe(result => {
+  //     result.
+  //   });
+  // }
 }

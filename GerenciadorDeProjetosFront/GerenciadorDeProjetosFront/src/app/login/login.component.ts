@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   mostrarCreateLogin: boolean = false;
   mostrarGerenciador: boolean = false;
   erroLogin: boolean = false;
+  loginCriado: boolean = false;
   filtroLogin!:loginModel;
 
   @Input() loginUser:any;
@@ -59,9 +60,10 @@ export class LoginComponent implements OnInit {
     this.service.addUser(loginUser)
       .subscribe(result => {
         if(result.id != 0){          
-          alert("Usuario criado");
+          this.loginCriado = true;
           this.mostrarCreateLogin = false;
           this.mostrarLogin = true;
+          this.loginUser = null;
         }
        else{
         alert("ERRO");

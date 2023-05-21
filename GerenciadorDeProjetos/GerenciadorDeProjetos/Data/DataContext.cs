@@ -7,7 +7,7 @@ namespace GerenciadorDeProjetos.Data
             public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
             public DbSet<List> List { get; set; }
-            public DbSet<CardList> CardList { get; set; }
             public DbSet<LoginUser> loginUsers { get; set; }
+            public DbSet<CardList> CardList { get; set; }
         }
 }

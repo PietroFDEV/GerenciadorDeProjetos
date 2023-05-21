@@ -1,5 +1,3 @@
-import { loginModel } from "./loginModel";
-
 export interface CardModel 
 {
     id: number,
@@ -10,6 +8,5 @@ export interface CardModel
     haveDeadline: boolean,
     priority: boolean,
     userId: number,
-    listId: number,
-    user: loginModel
+    listId: number
 }

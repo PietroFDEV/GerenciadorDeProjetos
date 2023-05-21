@@ -49,8 +49,8 @@ export class ApiGerenciadorService {
     return this.http.get<any>(this.gerenciadorAPIUrl + '/Lists');
   }
 
-  addList(data:any) {
-    return this.http.post(this.gerenciadorAPIUrl + '/Lists', data)
+  addList(data:any):Observable<loginModel>  {
+    return this.http.post<loginModel>(this.gerenciadorAPIUrl + '/Lists', data)
   }
 
   updateList(id:number, data:any) {
@@ -66,8 +66,8 @@ export class ApiGerenciadorService {
       return this.http.get<any>(this.gerenciadorAPIUrl + '/CardList');
     }
   
-    addCard(data:any) {
-      return this.http.post(this.gerenciadorAPIUrl + '/CardList', data)
+    addCard(data:any):Observable<CardModel> {
+      return this.http.post<CardModel>(this.gerenciadorAPIUrl + '/CardList', data)
     }
   
     updaCard(id:number, data:any) {

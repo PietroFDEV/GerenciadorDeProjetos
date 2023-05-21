@@ -15,7 +15,6 @@ namespace GerenciadorDeProjetos
         public bool Priority { get; set; }
         public int UserId { get; set; }
         public int ListId { get; set; }
-        public LoginUser? User { get; set; }
-        
+
     }
 }

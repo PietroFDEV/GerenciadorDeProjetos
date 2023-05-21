@@ -13,7 +13,7 @@
       {{ item.listName }}
     </div>
     <div href="#" class="list-group-item" aria-current="true">
-      <li class="list-group-item d-flex list-group-item-action justify-content-between align-items-start" *ngFor="let card of CardList$|async" (click)="ModalCreate()">
+      <li class="list-group-item d-flex list-group-item-action justify-content-between align-items-start" *ngFor="let card of CardList$|async" (click)="ModalCreate(3)">
         <div class="ms-2 me-auto">
           <div class="fw-bold">{{ card.name }}</div>   
           {{ card.text }}
@@ -23,15 +23,15 @@
           <span class="badge bg-danger" *ngIf="card.haveDeadline">{{ card.deadline | date:'dd-MM-yyyy' }}</span>  
         </div>
       </li>
-      <li class="mt-2 d-flex list-group-item-action justify-content-between align-items-start" (click)="ModalCreate()">
+      <li class="mt-2 d-flex list-group-item-action justify-content-between align-items-start" id="inputModal" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ModalCreate(2)">
         <svg xmlns="http://www.w3.org/2000/svg" width="8%" height="8%" fill="currentColor" class="bi bi-plus mx-auto" viewBox="0 0 16 16">
           <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
         </svg>
       </li>
     </div>
   </div>
-  <div href="#" class="d-flex flex-row bd-highlight p-5 align-items-start" aria-current="true" >
-    <button type="button" class="btn btn-success btn-lg btn-block" (click)="ModalCreate()">
+  <div href="#" class="d-flex flex-row bd-highlight p-5 align-items-start" aria-current="true">
+    <button type="button" id="inputModal" class="btn btn-success btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ModalCreate(1)">
       <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor" class="bi bi-plus mx-auto" viewBox="0 0 16 16">
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
       </svg>
@@ -40,23 +40,69 @@
 </div>
 
 <!-- Button Modal -->
-<button type="button" id="inputModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ModalCreate()">
+<button type="button" id="inputModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ModalCreate(1)">
   Launch demo modal
 </button>
 <!-- MODAL CREATE, DELETE, SHOW-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <!--LISTA-->
+    <div class="modal-content" *ngIf="createList">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Crie sua Lista</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+                
+        <div class="mb-md-5 mt-md-4 pb-5">
+
+          <div class="form-outline form-white mb-4">
+            <input type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="listName" [ngModelOptions]="{standalone: true}"/>
+            <label class="form-label" for="typeEmailX">Nome Lista</label>
+          </div>
+
+          <div class="form-outline form-white mb-4">
+            <input type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="priority" [ngModelOptions]="{standalone: true}"/>
+            <label class="form-label" for="typeEmailX">Prioridade</label>
+          </div>
+
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="CreateList()">Save changes</button>
+      </div>
+    </div>
+    <!--CARD-->
+    <div class="modal-content" *ngIf="createCard">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crie seu Card</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+                
+        <div class="mb-md-5 mt-md-4 pb-5">
+
+          <div class="form-outline form-white mb-4">
+            <input type="email" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="cardName" [ngModelOptions]="{standalone: true}"/>
+            <label class="form-label" for="typeEmailX">Nome Card</label>
+          </div>
+
+          <div class="form-outline form-white mb-4">
+            <input type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="cardText" [ngModelOptions]="{standalone: true}"/>
+            <label class="form-label" for="typeEmailX">Texto do Card</label>
+          </div>
+
+          <div class="form-outline form-white mb-4">
+            <input type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="priority" [ngModelOptions]="{standalone: true}"/>
+            <label class="form-label" for="typeEmailX">Prioridade</label>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="CreateCard()">Save changes</button>
       </div>
     </div>
   </div>

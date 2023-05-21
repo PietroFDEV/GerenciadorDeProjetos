@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciadorDeProjetos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230331235829_InitialCreate")]
+    [Migration("20230521193720_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -60,11 +60,6 @@ namespace GerenciadorDeProjetos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ListId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
-
                     b.ToTable("CardList");
                 });
 
@@ -90,12 +85,7 @@ namespace GerenciadorDeProjetos.Migrations
                     b.Property<bool>("PriorityList")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("List");
                 });
@@ -123,37 +113,6 @@ namespace GerenciadorDeProjetos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("loginUsers");
-                });
-
-            modelBuilder.Entity("GerenciadorDeProjetos.CardList", b =>
-                {
-                    b.HasOne("GerenciadorDeProjetos.List", null)
-                        .WithOne("CardList")
-                        .HasForeignKey("GerenciadorDeProjetos.CardList", "ListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GerenciadorDeProjetos.LoginUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("GerenciadorDeProjetos.List", b =>
-                {
-                    b.HasOne("GerenciadorDeProjetos.LoginUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("GerenciadorDeProjetos.List", b =>
-                {
-                    b.Navigation("CardList");
                 });
 #pragma warning restore 612, 618
         }

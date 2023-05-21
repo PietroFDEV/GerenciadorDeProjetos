@@ -23,6 +23,17 @@ export class GerenciadorHomeComponent implements OnInit {
   userId:number = 1;
   listId:number = 1;
   criarModal:boolean = false;
+  createList:boolean = false;
+  createCard:boolean = false;
+
+  //List atributes
+  listName: string = "";
+  priority: boolean = false;
+
+  //Card atributes
+  cardName: string = "";
+  cardText: string = "";
+
 
   ngOnInit(): void {
     this.Iniciar();
@@ -35,13 +46,63 @@ export class GerenciadorHomeComponent implements OnInit {
     this.CardList$ = this.service.getCardList(this.userId, this.listId);
   }
 
-  public ModalCreate() {
+  public ModalCreate(num:number) {
     this.criarModal = true;
+
+    switch(num){
+      case 1:
+        this.createList = true;
+      break;
+      case 2:
+        this.createCard = true;
+      break;
+    }
   }
 
-  // public CreateList() {
-  //   this.service.addList().subscribe(result => {
-  //     result.
-  //   });
-  // }
+  public CreateList() {
+    var newList = {
+      listName: this.listName,
+      priorityList: this.priority,
+      active: true,
+      idUser: this.userId
+    }
+    this.service.addList(newList)
+      .subscribe(result => {
+        if(result.id != 0){
+          this.criarModal = false;
+          this.createList = false;
+          this.Iniciar();
+          this.listName = "";
+          this.priority = false;
+        }
+       else{
+        alert("ERRO");
+       }
+      });
+  }
+  public CreateCard() {
+    var newCard = {
+      name: this.cardName,
+      text: this.cardText,
+      createDate: new Date(),
+      priority: this.priority,
+      userId: this.userId,
+      listId: this.listId
+    }
+    this.service.addCard(newCard)
+      .subscribe(result => {
+        if(result.id != 0){
+          this.criarModal = false;
+          this.createCard = false;
+          this.Iniciar();
+          this.cardName = "";
+          this.cardText = "";
+          this.priority = false;
+        }
+       else{
+        alert("ERRO");
+       }
+      });
+  }
+
 }

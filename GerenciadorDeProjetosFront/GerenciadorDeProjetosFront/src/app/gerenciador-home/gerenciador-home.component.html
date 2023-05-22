@@ -1,19 +1,19 @@
 <!--------------------------------------NAV BAR-------------------------------------->
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<!-- <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid">
     <a class="navbar-brand float-end" href="#">
       <img src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-pokemon-go-game-icon-png-22.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill"> 
     </a>
   </div>
-</nav>
+</nav> -->
 <!--------------------------------------LISTAS-------------------------------------->
 <div class="d-flex flex-row bd-highlight p-5 align-items-start">
   <div class="list-group p-2 bd-highlight" *ngFor="let item of ListaList$|async">
     <div href="#" class="list-group-item list-group-item-primary" aria-current="true" >
       {{ item.listName }}
     </div>
-    <div href="#" class="list-group-item" aria-current="true">
-      <li class="list-group-item d-flex list-group-item-action justify-content-between align-items-start" *ngFor="let card of CardList$|async" (click)="ModalCreate(3)">
+    <div href="#" class="list-group-item bg-dark text-white" aria-current="true">
+      <li class="list-group-item d-flex list-group-item-action justify-content-between bg-dark text-white border border-light btn-outline-info align-items-start gap-1" id="inputModal" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngFor="let card of CardList$|async" (click)="ModalCreate(3)">
         <div class="ms-2 me-auto">
           <div class="fw-bold">{{ card.name }}</div>   
           {{ card.text }}
@@ -31,7 +31,7 @@
     </div>
   </div>
   <div href="#" class="d-flex flex-row bd-highlight p-5 align-items-start" aria-current="true">
-    <button type="button" id="inputModal" class="btn btn-success btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ModalCreate(1)">
+    <button type="button" id="inputModal" class="btn btn-success bg-dark text-white btn-outline-light btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ModalCreate(1)">
       <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor" class="bi bi-plus mx-auto" viewBox="0 0 16 16">
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
       </svg>
@@ -40,9 +40,9 @@
 </div>
 
 <!-- Button Modal -->
-<button type="button" id="inputModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ModalCreate(1)">
+<!-- <button type="button" id="inputModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ModalCreate(1)">
   Launch demo modal
-</button>
+</button> -->
 <!-- MODAL CREATE, DELETE, SHOW-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -69,8 +69,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="CreateList()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" (click)="CreateList()">Salvar</button>
       </div>
     </div>
     <!--CARD-->
@@ -101,8 +101,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="CreateCard()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" (click)="CreateCard()">Salvar</button>
       </div>
     </div>
   </div>

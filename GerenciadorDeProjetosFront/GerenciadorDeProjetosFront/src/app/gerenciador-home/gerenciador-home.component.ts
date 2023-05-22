@@ -25,6 +25,7 @@ export class GerenciadorHomeComponent implements OnInit {
   criarModal:boolean = false;
   createList:boolean = false;
   createCard:boolean = false;
+  editCard:boolean = false;
 
   //List atributes
   listName: string = "";
@@ -56,6 +57,9 @@ export class GerenciadorHomeComponent implements OnInit {
       case 2:
         this.createCard = true;
       break;
+      case 3:
+        this.editCard = true;
+      break;
     }
   }
 
@@ -84,7 +88,6 @@ export class GerenciadorHomeComponent implements OnInit {
     var newCard = {
       name: this.cardName,
       text: this.cardText,
-      createDate: new Date(),
       priority: this.priority,
       userId: this.userId,
       listId: this.listId
@@ -103,6 +106,22 @@ export class GerenciadorHomeComponent implements OnInit {
         alert("ERRO");
        }
       });
+  }
+  public EditCard(id:number) {
+    this.service.getCardsById(id).subscribe(r => {
+      this.cardName = r.name;
+      this.cardText = r.text;
+    })
+    var Card = {
+      name: this.cardName,
+      text: this.cardText,
+      priority: this.priority,
+      userId: this.userId,
+      listId: this.listId
+    }
+    this.service.updaCard(id, Card).subscribe(r => {
+
+    })
   }
 
 }

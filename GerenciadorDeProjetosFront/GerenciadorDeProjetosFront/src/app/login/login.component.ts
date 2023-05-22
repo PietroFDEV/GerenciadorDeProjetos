@@ -64,6 +64,8 @@ export class LoginComponent implements OnInit {
           this.mostrarCreateLogin = false;
           this.mostrarLogin = true;
           this.loginUser = null;
+          this.login = "";
+          this.pass = "";
         }
        else{
         alert("ERRO");

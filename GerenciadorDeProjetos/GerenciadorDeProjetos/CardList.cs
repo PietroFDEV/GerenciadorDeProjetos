@@ -11,7 +11,7 @@ namespace GerenciadorDeProjetos
         [StringLength(200)]
         public string Text { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
-        public DateTime Deadline { get; set; }
+        public DateTime? Deadline { get; set; }
         public bool Priority { get; set; }
         public int UserId { get; set; }
         public int ListId { get; set; }

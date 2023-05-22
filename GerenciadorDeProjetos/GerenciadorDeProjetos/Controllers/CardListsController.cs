@@ -90,6 +90,8 @@ namespace GerenciadorDeProjetos.Controllers
           {
               return Problem("Entity set 'DataContext.CardList'  is null.");
           }
+          cardList.CreateDate = DateTime.Now;
+            cardList.Deadline= DateTime.Now;
             _context.CardList.Add(cardList);
             await _context.SaveChangesAsync();
 

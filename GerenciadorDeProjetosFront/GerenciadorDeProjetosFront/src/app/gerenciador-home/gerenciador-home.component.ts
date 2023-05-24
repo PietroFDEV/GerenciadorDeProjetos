@@ -22,7 +22,7 @@ export class GerenciadorHomeComponent implements OnInit {
   constructor(private service:ApiGerenciadorService, public datepipe: DatePipe, public route:Router, private acRoute: ActivatedRoute) {}
 
   userId:number = 1;
-  listId:number = 1;
+  listId:number = 0;
   criarModal:boolean = false;
   createList:boolean = false;
   createCard:boolean = false;
@@ -60,16 +60,17 @@ export class GerenciadorHomeComponent implements OnInit {
   }
 
   public ModalCreate(num:number) {
-    this.criarModal = true;
 
     switch(num){
       case 1:
         this.createList = true;
       break;
-      case 2:
-        this.createCard = true;
-      break;
     }
+  }
+  public ModalCard(idList: number){
+    this.criarModal = true;
+    this.createCard = true;
+    this.listId = idList;
   }
 
   public CreateList() {
@@ -115,6 +116,7 @@ export class GerenciadorHomeComponent implements OnInit {
         alert("ERRO");
        }
       });
+      this.listId = 0;
   }
   public EditCard(id:number) {
     this.service.getCardsById(id).subscribe(r => {

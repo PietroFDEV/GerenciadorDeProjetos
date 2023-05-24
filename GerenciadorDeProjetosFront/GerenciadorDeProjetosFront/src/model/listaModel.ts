@@ -1,3 +1,4 @@
+import { CardModel } from "./cardModel";
 import { loginModel } from "./loginModel";
 
 export interface ListaModel 
@@ -7,5 +8,6 @@ export interface ListaModel
     priorityList: boolean,
     active: boolean,
     idUser: number,
-    user: loginModel
+    user: loginModel,
+    card: CardModel[]
 }

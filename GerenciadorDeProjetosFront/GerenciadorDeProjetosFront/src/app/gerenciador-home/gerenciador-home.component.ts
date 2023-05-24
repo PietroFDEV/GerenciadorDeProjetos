@@ -6,6 +6,7 @@ import { CardModel } from 'src/model/cardModel';
 import { DatePipe } from '@angular/common';
 import { LoginComponent } from '../login/login.component';
 import { loginModel } from 'src/model/loginModel';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-gerenciador-home',
@@ -18,7 +19,7 @@ export class GerenciadorHomeComponent implements OnInit {
   CardList$!:Observable<CardModel[]>;
   UserList$!:Observable<loginModel[]>;
 
-  constructor(private service:ApiGerenciadorService, public datepipe: DatePipe) {}
+  constructor(private service:ApiGerenciadorService, public datepipe: DatePipe, public route:Router, private acRoute: ActivatedRoute) {}
 
   userId:number = 1;
   listId:number = 1;
@@ -34,9 +35,11 @@ export class GerenciadorHomeComponent implements OnInit {
   //Card atributes
   cardName: string = "";
   cardText: string = "";
+  cardId: number = 0;
 
 
   ngOnInit(): void {
+    // console.log(this.acRoute.url);
     this.Iniciar();
     
   }
@@ -44,7 +47,14 @@ export class GerenciadorHomeComponent implements OnInit {
   public Iniciar() {
     this.ListaList$ = this.service.getList();
     this.UserList$ = this.service.getUser();
-    this.CardList$ = this.service.getCardList(this.userId, this.listId);
+    this.ListaList$.subscribe(r => {
+      r.forEach(d => {
+      
+        // this.CardList$ = this.service.getCardList(this.userId, d.id);
+        // d.card.push();
+      
+      })
+    })
   }
 
   public ModalCreate(num:number) {
@@ -56,9 +66,6 @@ export class GerenciadorHomeComponent implements OnInit {
       break;
       case 2:
         this.createCard = true;
-      break;
-      case 3:
-        this.editCard = true;
       break;
     }
   }
@@ -111,7 +118,13 @@ export class GerenciadorHomeComponent implements OnInit {
     this.service.getCardsById(id).subscribe(r => {
       this.cardName = r.name;
       this.cardText = r.text;
+      this.cardId = r.id;
     })
+
+
+  }
+
+  public SalvarEdit() {
     var Card = {
       name: this.cardName,
       text: this.cardText,
@@ -119,9 +132,16 @@ export class GerenciadorHomeComponent implements OnInit {
       userId: this.userId,
       listId: this.listId
     }
-    this.service.updaCard(id, Card).subscribe(r => {
+    this.service.updaCard(this.cardId, Card).subscribe(r => {
 
     })
+  }
+
+  public FecharModal() {
+    this.criarModal = false;
+    this.createList = false;
+    this.createCard = false;
+    this.editCard = false;
   }
 
 }

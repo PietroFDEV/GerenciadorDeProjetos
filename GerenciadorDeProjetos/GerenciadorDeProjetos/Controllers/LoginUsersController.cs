@@ -52,9 +52,18 @@ namespace GerenciadorDeProjetos.Controllers
         }
 
         [HttpGet("{login}/{pass}")]
-        public bool ExistsUser(string login, string pass)
+        public int ExistsUser(string login, string pass)
         {
-            return (_context.loginUsers?.Any(e => e.UserLogin == login && e.UserPass == pass)).GetValueOrDefault();
+            if((_context.loginUsers?.Any(e => e.UserLogin == login && e.UserPass == pass)).GetValueOrDefault())
+            {
+               var idUser = _context.loginUsers
+                    .Where(u => u.UserLogin == login && u.UserPass == pass)
+                    .Select(u => u).FirstOrDefault();
+                
+                return Convert.ToInt32(idUser.Id);
+            }
+
+            return 0;
         }
 
         // PUT: api/LoginUsers/5
@@ -127,5 +136,6 @@ namespace GerenciadorDeProjetos.Controllers
         {
             return (_context.loginUsers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        
     }
 }

@@ -40,8 +40,8 @@ export class ApiGerenciadorService {
     return this.http.get<loginModel>(this.gerenciadorAPIUrl + `/LoginUsers/${id}`)
   }
 
-  existsUser(login:string, pass:string):Observable<boolean> {
-    return this.http.get<boolean>(this.gerenciadorAPIUrl + `/LoginUsers/${login}/${pass}`)
+  existsUser(login:string, pass:string):Observable<number> {
+    return this.http.get<number>(this.gerenciadorAPIUrl + `/LoginUsers/${login}/${pass}`)
   }
 
   //LISTA CRUD

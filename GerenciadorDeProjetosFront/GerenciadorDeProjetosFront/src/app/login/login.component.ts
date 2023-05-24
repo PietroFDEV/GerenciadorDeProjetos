@@ -3,6 +3,7 @@ import { ApiGerenciadorService } from '../api-gerenciador.service';
 import { Observable } from 'rxjs';
 import { ResourceLoader } from '@angular/compiler';
 import { loginModel } from 'src/model/loginModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   loginList$!:Observable<any[]>;
 
-  constructor(private service:ApiGerenciadorService) {}
+  constructor(private service:ApiGerenciadorService, public route:Router) {}
 
 
   mostrarLogin:boolean = true;
@@ -35,10 +36,11 @@ export class LoginComponent implements OnInit {
   public Login() {
     this.service.existsUser(this.login, this.pass)
       .subscribe(result => {
-        if(result) {
+        if(result != 0) {
           this.mostrarLogin = false;
           this.erroLogin = false;
           this.mostrarGerenciador = true;
+          this.route.navigate(['/gerenciador-home/' + result, { iduser: result }]);
         }else {
           this.erroLogin = true;
         }

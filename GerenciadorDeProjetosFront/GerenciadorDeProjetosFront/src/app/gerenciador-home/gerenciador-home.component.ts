@@ -39,19 +39,21 @@ export class GerenciadorHomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // console.log(this.acRoute.url);
+    this.acRoute.params.subscribe(d => {
+      this.userId = JSON.parse(d['iduser']);
+    });
     this.Iniciar();
     
   }
   
   public Iniciar() {
-    this.ListaList$ = this.service.getList();
+    this.ListaList$ = this.service.getListUserId(this.userId);
     this.UserList$ = this.service.getUser();
     this.ListaList$.subscribe(r => {
       r.forEach(d => {
-      
-        // this.CardList$ = this.service.getCardList(this.userId, d.id);
-        // d.card.push();
+        console.log(d.card);
+        this.CardList$ = this.service.getCardList(this.userId, d.id);
+        d.card.push();
       
       })
     })

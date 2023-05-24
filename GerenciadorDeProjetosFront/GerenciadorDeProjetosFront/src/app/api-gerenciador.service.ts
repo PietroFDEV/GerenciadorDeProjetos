@@ -49,6 +49,10 @@ export class ApiGerenciadorService {
     return this.http.get<any>(this.gerenciadorAPIUrl + '/Lists');
   }
 
+  getListUserId(userId: number):Observable<any[]> {
+    return this.http.get<any>(this.gerenciadorAPIUrl + `/Lists/user/${userId}`);
+  }
+
   addList(data:any):Observable<loginModel>  {
     return this.http.post<loginModel>(this.gerenciadorAPIUrl + '/Lists', data)
   }

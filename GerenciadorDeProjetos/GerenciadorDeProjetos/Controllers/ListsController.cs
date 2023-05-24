@@ -32,6 +32,17 @@ namespace GerenciadorDeProjetos.Controllers
             return await _context.List.ToListAsync();
         }
 
+        //GET: api/Lists/user/5
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<List>>> GetListUserId(int userID)
+        {
+            if (_context.List == null)
+            {
+                return NotFound();
+            }
+            return await _context.List.Where(l => l.IdUser == userID).ToListAsync();
+        }
+
         // GET: api/Lists/5
         [HttpGet("{id}")]
         public async Task<ActionResult<List>> GetList(int id)

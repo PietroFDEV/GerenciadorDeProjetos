@@ -65,28 +65,28 @@ export class ApiGerenciadorService {
     return this.http.delete(this.gerenciadorAPIUrl + `/Lists/${id}`)
   }
 
-    //CARDS CRUD
-    getCards():Observable<any[]> {
-      return this.http.get<any>(this.gerenciadorAPIUrl + '/CardLists');
-    }
+  //CARDS CRUD
+  getCards():Observable<any[]> {
+    return this.http.get<any>(this.gerenciadorAPIUrl + '/CardLists');
+  }
 
-    getCardsById(id:number):Observable<CardModel> {
-      return this.http.get<CardModel>(this.gerenciadorAPIUrl + `/CardLists/${id}`);
-    }
-  
-    addCard(data:any):Observable<CardModel> {
-      return this.http.post<CardModel>(this.gerenciadorAPIUrl + '/CardLists', data)
-    }
-  
-    updaCard(id:number, data:any) {
-      return this.http.put(this.gerenciadorAPIUrl + `/CardLists/${id}`, data)
-    }
-  
-    deleteCard(id:number) {
-      return this.http.delete(this.gerenciadorAPIUrl + `/CardLists/${id}`)
-    }
+  getCardsById(id:number):Observable<CardModel> {
+    return this.http.get<CardModel>(this.gerenciadorAPIUrl + `/CardLists/${id}`);
+  }
 
-    getCardList(userId:number, listId:number):Observable<CardModel[]> {
-      return this.http.get<CardModel[]>(this.gerenciadorAPIUrl + `/CardLists/GetCardListByUserId/${userId}/${listId}`);
-    }
+  addCard(data:any):Observable<CardModel> {
+    return this.http.post<CardModel>(this.gerenciadorAPIUrl + '/CardLists', data)
+  }
+
+  updaCard(id:number, data:any) {
+    return this.http.put(this.gerenciadorAPIUrl + `/CardLists/${id}`, data)
+  }
+
+  deleteCard(id:number) {
+    return this.http.delete(this.gerenciadorAPIUrl + `/CardLists/${id}`)
+  }
+
+  getCardList(userId:number, listId:number):Observable<CardModel[]> {
+    return this.http.get<CardModel[]>(this.gerenciadorAPIUrl + `/CardLists/GetCardListByUserId/${userId}/${listId}`);
+  }
 }

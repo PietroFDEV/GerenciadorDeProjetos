@@ -1,5 +1,5 @@
+import { Observable } from "rxjs";
 import { CardModel } from "./cardModel";
-import { loginModel } from "./loginModel";
 
 export interface ListaModel 
 {
@@ -8,6 +8,5 @@ export interface ListaModel
     priorityList: boolean,
     active: boolean,
     idUser: number,
-    user: loginModel,
-    card: CardModel[]
+    card: Observable<CardModel[]>
 }

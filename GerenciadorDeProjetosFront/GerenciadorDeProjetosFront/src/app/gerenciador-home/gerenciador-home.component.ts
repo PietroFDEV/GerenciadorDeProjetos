@@ -51,10 +51,23 @@ export class GerenciadorHomeComponent implements OnInit {
     this.UserList$ = this.service.getUser();
     this.ListaList$.subscribe(r => {
       r.forEach(d => {
-        console.log(d.card);
-        this.CardList$ = this.service.getCardList(this.userId, d.id);
-        d.card.push();
-      
+
+        this.service.getCardList(this.userId, d.id).subscribe(c => {
+          c.forEach(m => {
+            var cardList = m;
+            console.log(cardList);
+          })
+        });
+
+      //   var lit = {
+      //     id: d.id,
+      //     listName: d.listName,
+      //     priorityList: d.priorityList,
+      //     active: d.active,
+      //     idUser: d.idUser,
+      //     card: cardList
+      // }
+      //   d = lit;
       })
     })
   }

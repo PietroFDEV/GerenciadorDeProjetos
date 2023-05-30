@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CardModel } from 'src/model/cardModel';
+import { ListaModel } from 'src/model/listaModel';
 import { loginModel } from 'src/model/loginModel';
 
 @Injectable({
@@ -49,8 +50,9 @@ export class ApiGerenciadorService {
     return this.http.get<any>(this.gerenciadorAPIUrl + '/Lists');
   }
 
-  getListUserId(userId: number):Observable<any[]> {
-    return this.http.get<any>(this.gerenciadorAPIUrl + `/Lists/user/${userId}`);
+  getListUserId(userId: number):Observable<ListaModel[]> {
+    debugger
+    return this.http.get<ListaModel[]>(this.gerenciadorAPIUrl + `/Lists/user/${userId}`);
   }
 
   addList(data:any):Observable<loginModel>  {

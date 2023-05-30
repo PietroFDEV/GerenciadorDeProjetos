@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GerenciadorDeProjetos;
 using GerenciadorDeProjetos.Data;
+using NuGet.Protocol;
 
 namespace GerenciadorDeProjetos.Controllers
 {
@@ -33,24 +34,38 @@ namespace GerenciadorDeProjetos.Controllers
         }
 
         //GET: api/Lists/user/5
-        [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<List>>> GetListUserId(int userID)
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<IEnumerable<List>>> GetListUserId(int id)
         {
             if (_context.List == null)
             {
                 return NotFound();
             }
-            return await _context.List.Where(l => l.IdUser == userID).ToListAsync();
+            var lslists = await _context.List.Where(l => l.IdUser == id).ToListAsync();
+
+            lslists.ForEach(d =>
+            {
+                var cards = _context.CardList.Where(c => c.ListId == d.Id).ToList();
+                if (cards != null)
+                {
+                    cards.ForEach(m =>
+                    {
+                        d.CardList.Append(m);
+                    });
+                }
+            });
+
+            return lslists;
         }
 
         // GET: api/Lists/5
         [HttpGet("{id}")]
         public async Task<ActionResult<List>> GetList(int id)
         {
-          if (_context.List == null)
-          {
-              return NotFound();
-          }
+            if (_context.List == null)
+            {
+                return NotFound();
+            }
             var list = await _context.List.FindAsync(id);
 
             if (list == null)

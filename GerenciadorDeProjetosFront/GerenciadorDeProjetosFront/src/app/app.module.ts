@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 import { CardsComponent } from './cards/cards.component';
 import { Cards2Component } from './cards2/cards2.component';
 import { Cards3Component } from './cards3/cards3.component';
+import { ModalCardComponent } from './modal-card/modal-card.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { Cards3Component } from './cards3/cards3.component';
     LoginComponent,
     CardsComponent,
     Cards2Component,
-    Cards3Component
+    Cards3Component,
+    ModalCardComponent
   ],
   imports: [
     BrowserModule,

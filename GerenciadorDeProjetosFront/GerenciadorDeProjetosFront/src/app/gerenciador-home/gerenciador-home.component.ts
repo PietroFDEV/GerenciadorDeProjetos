@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { ApiGerenciadorService } from '../api-gerenciador.service';
 import { Observable } from 'rxjs';
 import { ListaModel } from 'src/model/listaModel';
@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './gerenciador-home.component.html',
   styleUrls: ['./gerenciador-home.component.css']
 })
-export class GerenciadorHomeComponent implements OnInit {
+export class GerenciadorHomeComponent implements OnInit, OnChanges {
 
   ListaList$!:Observable<ListaModel[]>;
   CardList$!:Observable<CardModel[]>;
@@ -27,6 +27,7 @@ export class GerenciadorHomeComponent implements OnInit {
   createCard:boolean = false;
   editCard:boolean = false;
   Lista: CardModel[] = [];
+  listaNumber: number = 1;
 
   //List atributes
   listName: string = "";
@@ -45,10 +46,22 @@ export class GerenciadorHomeComponent implements OnInit {
 
     this.Iniciar();
   }
+
+  
+  ngOnChanges(): void {
+    this.Iniciar();
+  }
   
   public Iniciar() {
+    this.listaNumber = 1;
+
     this.ListaList$ = this.service.getListUserId(this.userId);
-    this.ListaList$.forEach(d => d.forEach(x => console.log(x)));
+    this.ListaList$.forEach(d => {
+      if(d.length > 0)
+        d.forEach(x => {this.listaNumber = this.listaNumber + 1});
+      else
+        this.listaNumber = 1;
+    });
   }
 
   public ModalCreate(num:number) {
@@ -70,11 +83,12 @@ export class GerenciadorHomeComponent implements OnInit {
       listName: this.listName,
       priorityList: this.priority,
       active: true,
-      idUser: this.userId
+      idUser: this.userId,
+      listNumber: this.listaNumber
     };
     this.service.addList(newList)
       .subscribe(result => {
-        if(result.id != 0){
+        if(result.idL != 0){
           this.criarModal = false;
           this.createList = false;
           this.Iniciar();
@@ -127,7 +141,7 @@ export class GerenciadorHomeComponent implements OnInit {
       priority: this.priority,
       userId: this.userId,
       listId: this.listId
-    };
+        };
     this.service.updaCard(this.cardId, Card).subscribe(r => {
     });
   }
@@ -139,7 +153,11 @@ export class GerenciadorHomeComponent implements OnInit {
     this.editCard = false;
   }
 
-
+  public ApagarLista(idLIsta: number, listaNumber: number) {
+    this.service.deleteCards(listaNumber, this.userId).subscribe();
+    this.service.deleteListByUser(listaNumber, this.userId).subscribe();
+    this.Iniciar();
+  }
 
 
   /*Lixo pra DEPOIS*/

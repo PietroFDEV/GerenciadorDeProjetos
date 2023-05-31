@@ -118,15 +118,44 @@ namespace GerenciadorDeProjetos.Controllers
             return NoContent();
         }
 
+        // DELETE: api/CardLists/DeleteCards/5/1
+        [HttpDelete("DeleteCards/{listNumber}/{IdUser}")]
+        public async Task<IActionResult> DeleteCards(int listNumber, int IdUser)
+        {
+            if (_context.CardList == null)
+            {
+                return NotFound();
+            }
+            var cardList = _context.CardList.Where(d => d.ListNumber == listNumber && d.UserId == IdUser).ToList();
+            if (cardList == null)
+            {
+                return NotFound();
+            }
+            cardList.ForEach(c => _context.CardList.Remove(c));
+            await _context.SaveChangesAsync();
+
+            var cardlistUpdate = _context.CardList.Where(d => d.UserId == IdUser).ToList();
+            cardlistUpdate.ForEach(c => {
+                if(c.ListNumber > listNumber)
+                {
+                    c.ListNumber = (c.ListNumber - 1);
+                }
+            });
+            await _context.SaveChangesAsync();
+
+
+            return NoContent();
+        }
+
         private bool CardListExists(int id)
         {
             return (_context.CardList?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        [HttpGet("GetCardListByUserId/{UserId}/{ListId}")]
-        public ActionResult<IEnumerable<CardList>> GetCardListByUserId(int UserId, int ListId)
+        [HttpGet("GetCardListByUserId/{UserId}/{NumberList}")]
+        public ActionResult<IEnumerable<CardList>> GetCardListByUserId(int UserId, int NumberList)
         {
-            return _context.CardList.Where(d => d.UserId == UserId && d.ListId == ListId).ToList();
+            return _context.CardList.Where(d => d.UserId == UserId && d.ListNumber == NumberList).ToList();
         }
     }
 }

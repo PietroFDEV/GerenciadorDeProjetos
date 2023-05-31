@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciadorDeProjetos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230521193720_InitialCreate")]
+    [Migration("20230531183222_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -36,10 +36,13 @@ namespace GerenciadorDeProjetos.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Deadline")
+                    b.Property<DateTime?>("Deadline")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ListId")
+                    b.Property<int?>("ListId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ListNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -59,6 +62,8 @@ namespace GerenciadorDeProjetos.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ListId");
 
                     b.ToTable("CardList");
                 });
@@ -81,6 +86,9 @@ namespace GerenciadorDeProjetos.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("ListNumber")
+                        .HasColumnType("int");
 
                     b.Property<bool>("PriorityList")
                         .HasColumnType("bit");
@@ -113,6 +121,18 @@ namespace GerenciadorDeProjetos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("loginUsers");
+                });
+
+            modelBuilder.Entity("GerenciadorDeProjetos.CardList", b =>
+                {
+                    b.HasOne("GerenciadorDeProjetos.List", null)
+                        .WithMany("CardList")
+                        .HasForeignKey("ListId");
+                });
+
+            modelBuilder.Entity("GerenciadorDeProjetos.List", b =>
+                {
+                    b.Navigation("CardList");
                 });
 #pragma warning restore 612, 618
         }

@@ -142,6 +142,34 @@ namespace GerenciadorDeProjetos.Controllers
             return NoContent();
         }
 
+        // DELETE: api/Lists/DeleteLists/5/1
+        [HttpDelete("DeleteLists/{listNumber}/{userId}")]
+        public async Task<IActionResult> DeleteListByUser(int listNumber, int userId)
+        {
+            if (_context.List == null)
+            {
+                return NotFound();
+            }
+            var list = _context.List.Where(d => d.ListNumber == listNumber && d.IdUser == userId).ToList();
+            if (list == null)
+            {
+                return NotFound();
+            }
+            list.ForEach(d => _context.List.Remove(d));
+            await _context.SaveChangesAsync();
+
+            var listUpdate = _context.List.Where(d => d.IdUser == userId).ToList();
+            listUpdate.ForEach(l => {
+                if (l.ListNumber > listNumber)
+                {
+                    l.ListNumber = (l.ListNumber - 1);
+                }
+            });
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         private bool ListExists(int id)
         {
             return (_context.List?.Any(e => e.Id == id)).GetValueOrDefault();

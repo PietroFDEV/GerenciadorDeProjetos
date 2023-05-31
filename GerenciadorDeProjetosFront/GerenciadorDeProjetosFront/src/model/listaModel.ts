@@ -1,4 +1,3 @@
-import { Observable } from "rxjs";
 
 export interface CardModel 
 {
@@ -21,4 +20,5 @@ export class ListaModel
     active!: boolean;
     idUser!: number;
     card!: CardModel[];
+    listNumber!: number;
 }

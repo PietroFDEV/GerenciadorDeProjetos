@@ -1,6 +1,8 @@
+import { Observable } from "rxjs";
+
 export interface CardModel 
 {
-    id: number;
+    idC: number;
     name: string;
     text: string;
     createDate: Date;
@@ -11,12 +13,12 @@ export interface CardModel
     haveDeadline?: boolean;
 }
 
-export interface ListaModel 
+export class ListaModel 
 {
-    id: number;
-    listName: string;
-    priorityList: boolean;
-    active: boolean;
-    idUser: number;
-    card: CardModel[];
+    idL!: number;
+    listName!: string;
+    priorityList!: boolean;
+    active!: boolean;
+    idUser!: number;
+    card!: CardModel[];
 }

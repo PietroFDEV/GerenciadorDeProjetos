@@ -10,12 +10,14 @@ import { GerenciadorHomeComponent } from './gerenciador-home/gerenciador-home.co
 import { ApiGerenciadorService } from './api-gerenciador.service';
 import { LoginComponent } from './login/login.component';
 import { DatePipe } from '@angular/common';
+import { CardsComponent } from './cards/cards.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GerenciadorHomeComponent,
-    LoginComponent
+    LoginComponent,
+    CardsComponent
   ],
   imports: [
     BrowserModule,

@@ -51,7 +51,6 @@ export class ApiGerenciadorService {
   }
 
   getListUserId(userId: number):Observable<ListaModel[]> {
-    debugger
     return this.http.get<ListaModel[]>(this.gerenciadorAPIUrl + `/Lists/user/${userId}`);
   }
 

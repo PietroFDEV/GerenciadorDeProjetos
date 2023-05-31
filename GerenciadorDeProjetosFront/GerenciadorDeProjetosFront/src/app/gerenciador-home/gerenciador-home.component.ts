@@ -44,35 +44,12 @@ export class GerenciadorHomeComponent implements OnInit {
     });
 
     this.Iniciar();
-    // this.LoadCard();
-
   }
   
   public Iniciar() {
     this.ListaList$ = this.service.getListUserId(this.userId);
-    this.UserList$ = this.service.getUser();
-
-    // this.LoadCard();
-    //this.ListaList$.forEach(d => d.forEach(x => console.log(x.card)));
-
+    this.ListaList$.forEach(d => d.forEach(x => console.log(x)));
   }
-
-  // public LoadCard() {
-  //   this.ListaList$.subscribe(r => {
-  //     r.forEach(d => {
-  //       d.card = [];
-  //       this.service.getCardList(this.userId, d.id).subscribe(c => {
-  //         if(c != null){
-  //         c.forEach(x => {
-  //           d.card.push(x);
-  //         });
-  //       }
-  //       });
-  //     });
-  //     return r;
-  //   },(err) => console.log(err));
-  //   console.log(this.ListaList$.forEach(d => d.forEach(x => console.log(x.card))));
-  // }
 
   public ModalCreate(num:number) {
     switch(num){
@@ -162,4 +139,32 @@ export class GerenciadorHomeComponent implements OnInit {
     this.editCard = false;
   }
 
+
+
+
+  /*Lixo pra DEPOIS*/
+  
+    // this.LoadCard();
+    //this.ListaList$.forEach(d => d.forEach(x => console.log(x.card)));
+
+  // public trackMethod(index: number, el: ListaModel): number {
+  //   return el.card[index].idC;
+  // }
+
+  // public LoadCard() {
+  //   this.ListaList$.subscribe(r => {
+  //     r.forEach(d => {
+  //       d.card = [];
+  //       this.service.getCardList(this.userId, d.id).subscribe(c => {
+  //         if(c != null){
+  //         c.forEach(x => {
+  //           d.card.push(x);
+  //         });
+  //       }
+  //       });
+  //     });
+  //     return r;
+  //   },(err) => console.log(err));
+  //   console.log(this.ListaList$.forEach(d => d.forEach(x => console.log(x.card))));
+  // }
 }

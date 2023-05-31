@@ -1,0 +1,7 @@
+.list-group-item > li {
+    cursor: pointer;
+}
+
+#inputModal:hover{
+    background-color: white;
+}

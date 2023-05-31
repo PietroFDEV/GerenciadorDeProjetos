@@ -11,13 +11,17 @@ import { ApiGerenciadorService } from './api-gerenciador.service';
 import { LoginComponent } from './login/login.component';
 import { DatePipe } from '@angular/common';
 import { CardsComponent } from './cards/cards.component';
+import { Cards2Component } from './cards2/cards2.component';
+import { Cards3Component } from './cards3/cards3.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GerenciadorHomeComponent,
     LoginComponent,
-    CardsComponent
+    CardsComponent,
+    Cards2Component,
+    Cards3Component
   ],
   imports: [
     BrowserModule,

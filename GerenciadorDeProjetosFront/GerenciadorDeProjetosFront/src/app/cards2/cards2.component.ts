@@ -5,17 +5,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CardModel } from 'src/model/cardModel';
 
 @Component({
-  selector: 'app-cards',
-  templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.css']
+  selector: 'app-cards2',
+  templateUrl: './cards2.component.html',
+  styleUrls: ['./cards2.component.css']
 })
-export class CardsComponent implements OnInit{
+export class Cards2Component {
   constructor(private service:ApiGerenciadorService, public datepipe: DatePipe, public route:Router, private acRoute: ActivatedRoute) {}
 
   cardList: CardModel[] = [];
 
   ngOnInit(): void {
-    this.service.getCardList(1,1).subscribe(d => {
+    this.service.getCardList(1,2).subscribe(d => {
       this.cardList = d;
     });
   }

@@ -8,14 +8,16 @@
 </nav> -->
 <!--------------------------------------LISTAS-------------------------------------->
 <div class="d-flex flex-row bd-highlight p-5 align-items-start" >
-  <div class="list-group p-2 bd-highlight" *ngFor="let item of ListaList$|async" >
+  <div class="list-group p-2 bd-highlight" *ngFor="let item of ListaList$|async;let i = index" >
     <div *ngIf="item != null" class="rounded">
       <div href="#" class="list-group-item list-group-item-primary d-flex flex-row justify-content-between align-content-center" aria-current="true">
         {{ item.listName }}
 
         <button class="btn btn-danger text-white btn-sm btn-block">Apagar</button>
       </div>
-      <app-cards></app-cards>
+      <app-cards *ngIf="(i) == 0"></app-cards>
+      <app-cards2 *ngIf="(i) == 1"></app-cards2>
+      <app-cards3 *ngIf="(i) == 2"></app-cards3>
     </div>
     </div>
     <div href="#" class="d-flex flex-row bd-highlight p-5 align-items-start" aria-current="true">

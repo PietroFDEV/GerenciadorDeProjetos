@@ -43,12 +43,15 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
     this.acRoute.params.subscribe(d => {
       this.userId = JSON.parse(d['iduser']);
     });
+    this.Lista = [];
 
     this.Iniciar();
   }
 
   
   ngOnChanges(): void {
+    this.Lista = [];
+
     this.Iniciar();
   }
   
@@ -157,6 +160,10 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
     this.service.deleteCards(listaNumber, this.userId).subscribe();
     this.service.deleteListByUser(listaNumber, this.userId).subscribe();
     this.Iniciar();
+  }
+
+  public EditarLista(idLista: number) {
+
   }
 
 

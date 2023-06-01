@@ -22,9 +22,9 @@
   
             <div class="form-outline form-white mb-4">
               <label class="mr-1">Prioridade</label>
-              <input type="radio" [(ngModel)]="priority" value="true"/>
+              <input type="radio" [value]="true" [(ngModel)]="priority" />
               <label class="form-label" >Sim</label>
-              <input type="radio" [(ngModel)]="priority" value="false"/>
+              <input type="radio" [value]="false" [(ngModel)]="priority" />
               <label class="form-label">Não</label>
             </div>
 

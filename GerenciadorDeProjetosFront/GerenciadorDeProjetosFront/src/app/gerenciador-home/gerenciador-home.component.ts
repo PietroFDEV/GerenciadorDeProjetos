@@ -145,7 +145,7 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
       userId: this.userId,
       listId: this.listId
         };
-    this.service.updaCard(this.cardId, Card).subscribe(r => {
+    this.service.updateCard(this.cardId, Card).subscribe(r => {
     });
   }
 
@@ -159,6 +159,8 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
   public ApagarLista(idLIsta: number, listaNumber: number) {
     this.service.deleteCards(listaNumber, this.userId).subscribe();
     this.service.deleteListByUser(listaNumber, this.userId).subscribe();
+    this.Lista = [];
+
     this.Iniciar();
   }
 

@@ -48,6 +48,12 @@ export class ModalCardComponent implements OnInit {
     }
 
     public SalvarEdit() {
-      
+      var Card = {
+        name: this.cardName,
+        text: this.cardText,
+        priority: this.priority
+          };
+      this.service.updateCard(this.cardId, Card).subscribe(r => {
+      });    
     }
 }

@@ -84,7 +84,7 @@ export class ApiGerenciadorService {
     return this.http.post<CardModel>(this.gerenciadorAPIUrl + '/CardLists', data)
   }
 
-  updaCard(id:number, data:any) {
+  updateCard(id:number, data:any) {
     return this.http.put(this.gerenciadorAPIUrl + `/CardLists/${id}`, data)
   }
 

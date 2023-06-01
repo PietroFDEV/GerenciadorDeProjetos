@@ -26,10 +26,10 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<List>>> GetList()
         {
-          if (_context.List == null)
-          {
-              return NotFound();
-          }
+            if (_context.List == null)
+            {
+                return NotFound();
+            }
             return await _context.List.ToListAsync();
         }
 
@@ -112,10 +112,10 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpPost]
         public async Task<ActionResult<List>> PostList(List list)
         {
-          if (_context.List == null)
-          {
-              return Problem("Entity set 'DataContext.List'  is null.");
-          }
+            if (_context.List == null)
+            {
+                return Problem("Entity set 'DataContext.List'  is null.");
+            }
             _context.List.Add(list);
             await _context.SaveChangesAsync();
 
@@ -159,7 +159,8 @@ namespace GerenciadorDeProjetos.Controllers
             await _context.SaveChangesAsync();
 
             var listUpdate = _context.List.Where(d => d.IdUser == userId).ToList();
-            listUpdate.ForEach(l => {
+            listUpdate.ForEach(l =>
+            {
                 if (l.ListNumber > listNumber)
                 {
                     l.ListNumber = (l.ListNumber - 1);

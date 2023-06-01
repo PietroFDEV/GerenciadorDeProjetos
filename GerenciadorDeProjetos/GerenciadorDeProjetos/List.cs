@@ -9,7 +9,7 @@ namespace GerenciadorDeProjetos
         [StringLength(20)]
         public string ListName { get; set; } = string.Empty;
         public bool PriorityList { get; set; }
-        public bool Active { get; set; } 
+        public bool Active { get; set; }
         public int IdUser { get; set; }
         public int ListNumber { get; set; }
         public IEnumerable<CardList>? CardList { get; set; }

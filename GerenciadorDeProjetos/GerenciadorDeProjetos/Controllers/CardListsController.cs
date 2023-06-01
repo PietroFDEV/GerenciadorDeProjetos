@@ -25,10 +25,10 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CardList>>> GetCardList()
         {
-          if (_context.CardList == null)
-          {
-              return NotFound();
-          }
+            if (_context.CardList == null)
+            {
+                return NotFound();
+            }
             return await _context.CardList.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CardList>> GetCardList(int id)
         {
-          if (_context.CardList == null)
-          {
-              return NotFound();
-          }
+            if (_context.CardList == null)
+            {
+                return NotFound();
+            }
             var cardList = await _context.CardList.FindAsync(id);
 
             if (cardList == null)
@@ -86,12 +86,12 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpPost]
         public async Task<ActionResult<CardList>> PostCardList(CardList cardList)
         {
-          if (_context.CardList == null)
-          {
-              return Problem("Entity set 'DataContext.CardList'  is null.");
-          }
-          cardList.CreateDate = DateTime.Now;
-            cardList.Deadline= DateTime.Now;
+            if (_context.CardList == null)
+            {
+                return Problem("Entity set 'DataContext.CardList'  is null.");
+            }
+            cardList.CreateDate = DateTime.Now;
+            cardList.Deadline = DateTime.Now;
             _context.CardList.Add(cardList);
             await _context.SaveChangesAsync();
 
@@ -135,8 +135,9 @@ namespace GerenciadorDeProjetos.Controllers
             await _context.SaveChangesAsync();
 
             var cardlistUpdate = _context.CardList.Where(d => d.UserId == IdUser).ToList();
-            cardlistUpdate.ForEach(c => {
-                if(c.ListNumber > listNumber)
+            cardlistUpdate.ForEach(c =>
+            {
+                if (c.ListNumber > listNumber)
                 {
                     c.ListNumber = (c.ListNumber - 1);
                 }

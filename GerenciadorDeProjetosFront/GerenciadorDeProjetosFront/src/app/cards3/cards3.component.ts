@@ -13,16 +13,24 @@ export class Cards3Component  implements OnInit, OnChanges{
   constructor(private service:ApiGerenciadorService, public datepipe: DatePipe, public route:Router, private acRoute: ActivatedRoute) {}
 
   cardList: CardModel[] = [];
-
+  userId: number = 0;
   ngOnInit(): void {
-    this.service.getCardList(1,3).subscribe(d => {
+    this.acRoute.params.subscribe(d => {
+      this.userId = JSON.parse(d['iduser']);
+    });
+
+    this.service.getCardList(this.userId,3).subscribe(d => {
       this.cardList = d;
     });
   }
 
   ngOnChanges(): void {
-    this.service.getCardList(1,3).subscribe(d => {
+    this.service.getCardList(this.userId,3).subscribe(d => {
       this.cardList = d;
     });
+  }
+
+  public EditCard(idCard: number, numeroEdit: number) {
+    this.route.navigate(['/modal-card/' + idCard, { idCard: idCard , numero: numeroEdit, userId: this.userId}]);
   }
 }

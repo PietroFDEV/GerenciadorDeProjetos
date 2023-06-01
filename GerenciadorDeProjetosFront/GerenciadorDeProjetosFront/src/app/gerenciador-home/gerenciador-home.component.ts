@@ -20,7 +20,7 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
 
   constructor(private service:ApiGerenciadorService, public datepipe: DatePipe, public route:Router, private acRoute: ActivatedRoute) {}
 
-  userId:number = 1;
+  userId:number = 0;
   listId:number = 0;
   criarModal:boolean = false;
   createList:boolean = false;

@@ -32,7 +32,8 @@ import { ModalCardComponent } from './modal-card/modal-card.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent, pathMatch: 'full'},
-      { path: 'gerenciador-home/:iduser', component: GerenciadorHomeComponent}
+      { path: 'gerenciador-home/:iduser', component: GerenciadorHomeComponent},
+      { path: 'modal-card/:idcard', component: ModalCardComponent}
     ])
   ],
   providers: [ApiGerenciadorService, DatePipe],

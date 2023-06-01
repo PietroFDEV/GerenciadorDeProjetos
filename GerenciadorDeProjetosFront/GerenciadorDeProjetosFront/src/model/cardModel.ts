@@ -1,5 +1,4 @@
-export interface CardModel 
-{
+export interface CardModel {
     id: number,
     name: string,
     text: string,

@@ -9,8 +9,8 @@ import { CardModel } from 'src/model/cardModel';
   templateUrl: './cards2.component.html',
   styleUrls: ['./cards2.component.css']
 })
-export class Cards2Component  implements OnInit, OnChanges{
-  constructor(private service:ApiGerenciadorService, public datepipe: DatePipe, public route:Router, private acRoute: ActivatedRoute) {}
+export class Cards2Component implements OnInit, OnChanges {
+  constructor(private service: ApiGerenciadorService, public datepipe: DatePipe, public route: Router, private acRoute: ActivatedRoute) { }
 
   cardList: CardModel[] = [];
   userId: number = 0;
@@ -19,19 +19,19 @@ export class Cards2Component  implements OnInit, OnChanges{
       this.userId = JSON.parse(d['iduser']);
     });
 
-    this.service.getCardList(this.userId,2).subscribe(d => {
+    this.service.getCardList(this.userId, 2).subscribe(d => {
       this.cardList = d;
     });
   }
 
   ngOnChanges(): void {
-    this.service.getCardList(this.userId,2).subscribe(d => {
+    this.service.getCardList(this.userId, 2).subscribe(d => {
       this.cardList = d;
     });
   }
 
   public EditCard(idCard: number, numeroEdit: number) {
-    this.route.navigate(['/modal-card/' + idCard, { idCard: idCard , numero: numeroEdit, userId: this.userId}]);
+    this.route.navigate(['/modal-card/' + idCard, { idCard: idCard, numero: numeroEdit, userId: this.userId }]);
   }
-  
+
 }

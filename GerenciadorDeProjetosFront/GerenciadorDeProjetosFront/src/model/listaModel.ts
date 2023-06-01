@@ -1,6 +1,5 @@
 
-export interface CardModel 
-{
+export interface CardModel {
     idC: number;
     name: string;
     text: string;
@@ -12,8 +11,7 @@ export interface CardModel
     haveDeadline?: boolean;
 }
 
-export class ListaModel 
-{
+export class ListaModel {
     idL!: number;
     listName!: string;
     priorityList!: boolean;

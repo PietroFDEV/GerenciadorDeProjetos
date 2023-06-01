@@ -14,18 +14,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class GerenciadorHomeComponent implements OnInit, OnChanges {
 
-  ListaList$!:Observable<ListaModel[]>;
-  CardList$!:Observable<CardModel[]>;
-  UserList$!:Observable<loginModel[]>;
+  ListaList$!: Observable<ListaModel[]>;
+  CardList$!: Observable<CardModel[]>;
+  UserList$!: Observable<loginModel[]>;
 
-  constructor(private service:ApiGerenciadorService, public datepipe: DatePipe, public route:Router, private acRoute: ActivatedRoute) {}
+  constructor(private service: ApiGerenciadorService, public datepipe: DatePipe, public route: Router, private acRoute: ActivatedRoute) { }
 
-  userId:number = 0;
-  listId:number = 0;
-  criarModal:boolean = false;
-  createList:boolean = false;
-  createCard:boolean = false;
-  editCard:boolean = false;
+  userId: number = 0;
+  listId: number = 0;
+  criarModal: boolean = false;
+  createList: boolean = false;
+  createCard: boolean = false;
+  editCard: boolean = false;
   Lista: CardModel[] = [];
   listaNumber: number = 1;
 
@@ -48,34 +48,34 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
     this.Iniciar();
   }
 
-  
+
   ngOnChanges(): void {
     this.Lista = [];
 
     this.Iniciar();
   }
-  
+
   public Iniciar() {
     this.listaNumber = 1;
 
     this.ListaList$ = this.service.getListUserId(this.userId);
     this.ListaList$.forEach(d => {
-      if(d.length > 0)
-        d.forEach(x => {this.listaNumber = this.listaNumber + 1});
+      if (d.length > 0)
+        d.forEach(x => { this.listaNumber = this.listaNumber + 1 });
       else
         this.listaNumber = 1;
     });
   }
 
-  public ModalCreate(num:number) {
-    switch(num){
+  public ModalCreate(num: number) {
+    switch (num) {
       case 1:
         this.createList = true;
-      break;
+        break;
     }
   }
 
-  public ModalCard(idList: number){
+  public ModalCard(idList: number) {
     this.criarModal = true;
     this.createCard = true;
     this.listId = idList;
@@ -91,16 +91,16 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
     };
     this.service.addList(newList)
       .subscribe(result => {
-        if(result.idL != 0){
+        if (result.idL != 0) {
           this.criarModal = false;
           this.createList = false;
           this.Iniciar();
           this.listName = "";
           this.priority = false;
         }
-       else{
-        alert("ERRO");
-       }
+        else {
+          alert("ERRO");
+        }
       });
   }
 
@@ -114,7 +114,7 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
     };
     this.service.addCard(newCard)
       .subscribe(result => {
-        if(result.id != 0){
+        if (result.id != 0) {
           this.criarModal = false;
           this.createCard = false;
           this.Iniciar();
@@ -122,14 +122,14 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
           this.cardText = "";
           this.priority = false;
         }
-       else{
-        alert("ERRO");
-       }
+        else {
+          alert("ERRO");
+        }
       });
-      this.listId = 0;
+    this.listId = 0;
   }
 
-  public EditCard(id:number) {
+  public EditCard(id: number) {
     this.service.getCardsById(id).subscribe(r => {
       this.cardName = r.name;
       this.cardText = r.text;
@@ -144,7 +144,7 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
       priority: this.priority,
       userId: this.userId,
       listId: this.listId
-        };
+    };
     this.service.updateCard(this.cardId, Card).subscribe(r => {
     });
   }
@@ -170,9 +170,9 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
 
 
   /*Lixo pra DEPOIS*/
-  
-    // this.LoadCard();
-    //this.ListaList$.forEach(d => d.forEach(x => console.log(x.card)));
+
+  // this.LoadCard();
+  //this.ListaList$.forEach(d => d.forEach(x => console.log(x.card)));
 
   // public trackMethod(index: number, el: ListaModel): number {
   //   return el.card[index].idC;

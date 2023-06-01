@@ -8,9 +8,9 @@ describe('GerenciadorHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GerenciadorHomeComponent ]
+      declarations: [GerenciadorHomeComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(GerenciadorHomeComponent);
     component = fixture.componentInstance;

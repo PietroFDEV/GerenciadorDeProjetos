@@ -24,15 +24,16 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
   listId: number = 0;
   criarModal: boolean = false;
   createList: boolean = false;
+  editList: boolean = false;
   editCard: boolean = false;
   listaNumber: number = 1;
   listaForEach: number = 0;
+  
 
   //List atributes
+  idListEdita: number = 0;
   listName: string = "";
   priority: boolean = false;
-
-
 
   ngOnInit(): void {
     this.acRoute.params.subscribe(d => {
@@ -83,7 +84,7 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
 
     this.service.addList(newList)
       .subscribe(result => {
-        if (result.idL != 0) {
+        if (result.id != 0) {
           this.criarModal = false;
           this.createList = false;
           this.Iniciar();
@@ -106,11 +107,25 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
     this.service.deleteCards(listaNumber, this.userId).subscribe();
     this.service.deleteListByUser(listaNumber, this.userId).subscribe();
     window.location.reload();
-    this.Iniciar();
   }
 
   public EditarLista(idLista: number) {
+    this.idListEdita = idLista;
+    this.service.getListId(idLista).subscribe(d => {
+      this.listName = d.listName;
+      this.priority = d.priorityList;
+    });
+    this.editList = true;
+  }
 
+  public SalvarEditList() {
+    var List = {
+      listName: this.listName,
+      priorityList: this.priority
+    };
+    this.service.updateList(this.idListEdita, List).subscribe(d => {
+      window.location.reload();
+    });
   }
 
 }

@@ -70,4 +70,11 @@ export class ModalCardComponent implements OnInit {
       this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
     });
   }
+
+  public ApagarCard() {
+    this.service.deleteCard(this.cardId).subscribe(r => {
+      this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
+    });
+    
+  }
 }

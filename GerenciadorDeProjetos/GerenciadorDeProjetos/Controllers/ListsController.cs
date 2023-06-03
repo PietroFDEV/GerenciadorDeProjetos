@@ -81,12 +81,19 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutList(int id, List list)
         {
-            if (id != list.Id)
+            var entity = _context.List.Find(id);
+            if (entity == null)
             {
                 return BadRequest();
             }
 
-            _context.Entry(list).State = EntityState.Modified;
+            list.Id = entity.Id;
+            list.ListNumber = entity.ListNumber;
+            list.CardList = entity.CardList;
+            list.Active = entity.Active;
+            list.IdUser = entity.IdUser;
+
+            _context.List.Entry(entity).CurrentValues.SetValues(list);
 
             try
             {

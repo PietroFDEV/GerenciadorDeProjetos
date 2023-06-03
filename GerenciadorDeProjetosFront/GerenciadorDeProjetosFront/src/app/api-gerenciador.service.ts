@@ -54,6 +54,10 @@ export class ApiGerenciadorService {
     return this.http.get<ListaModel[]>(this.gerenciadorAPIUrl + `/Lists/user/${userId}`);
   }
 
+  getListId(userId: number): Observable<ListaModel> {
+    return this.http.get<ListaModel>(this.gerenciadorAPIUrl + `/Lists/${userId}`);
+  }
+
   addList(data: any): Observable<ListaModel> {
     return this.http.post<ListaModel>(this.gerenciadorAPIUrl + '/Lists', data)
   }

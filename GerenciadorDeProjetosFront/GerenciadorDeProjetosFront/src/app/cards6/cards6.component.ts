@@ -5,11 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CardModel } from 'src/model/cardModel';
 
 @Component({
-  selector: 'app-cards',
-  templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.css']
+  selector: 'app-cards6',
+  templateUrl: './cards6.component.html',
+  styleUrls: ['./cards6.component.css']
 })
-export class CardsComponent implements OnInit, OnChanges {
+export class Cards6Component implements OnInit, OnChanges {
   constructor(private service: ApiGerenciadorService, public datepipe: DatePipe, public route: Router, private acRoute: ActivatedRoute) { }
 
   cardList: CardModel[] = [];
@@ -19,13 +19,13 @@ export class CardsComponent implements OnInit, OnChanges {
       this.userId = JSON.parse(d['iduser']);
     });
 
-    this.service.getCardList(this.userId, 1).subscribe(d => {
+    this.service.getCardList(this.userId, 3).subscribe(d => {
       this.cardList = d;
     });
   }
 
   ngOnChanges(): void {
-    this.service.getCardList(this.userId, 1).subscribe(d => {
+    this.service.getCardList(this.userId, 3).subscribe(d => {
       this.cardList = d;
     });
   }

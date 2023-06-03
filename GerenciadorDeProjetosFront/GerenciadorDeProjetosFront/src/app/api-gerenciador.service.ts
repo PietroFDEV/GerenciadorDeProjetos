@@ -67,7 +67,6 @@ export class ApiGerenciadorService {
   }
 
   deleteListByUser(listaNumber: number, userId: number) {
-    debugger
     return this.http.delete(this.gerenciadorAPIUrl + `/Lists/DeleteLists/${listaNumber}/${userId}`)
   }
 
@@ -93,7 +92,6 @@ export class ApiGerenciadorService {
   }
 
   deleteCards(listNumber: number, idUser: number) {
-    debugger
     return this.http.delete(this.gerenciadorAPIUrl + `/CardLists/DeleteCards/${listNumber}/${idUser}`)
   }
 

@@ -55,12 +55,17 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCardList(int id, CardList cardList)
         {
-            if (id != cardList.Id)
+
+            var entity = _context.CardList.Find(id);
+            if (entity == null)
             {
                 return BadRequest();
             }
 
-            _context.Entry(cardList).State = EntityState.Modified;
+            cardList.Id = entity.Id;
+
+            _context.CardList.Entry(entity).CurrentValues.SetValues(cardList);
+
 
             try
             {

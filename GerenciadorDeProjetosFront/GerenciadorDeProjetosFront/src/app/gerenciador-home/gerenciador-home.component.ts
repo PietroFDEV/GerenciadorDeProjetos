@@ -24,46 +24,43 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
   listId: number = 0;
   criarModal: boolean = false;
   createList: boolean = false;
-  createCard: boolean = false;
   editCard: boolean = false;
-  Lista: CardModel[] = [];
   listaNumber: number = 1;
+  listaForEach: number = 0;
 
   //List atributes
   listName: string = "";
   priority: boolean = false;
 
-  //Card atributes
-  cardName: string = "";
-  cardText: string = "";
-  cardId: number = 0;
 
 
   ngOnInit(): void {
     this.acRoute.params.subscribe(d => {
       this.userId = JSON.parse(d['iduser']);
     });
-    this.Lista = [];
 
     this.Iniciar();
   }
 
 
   ngOnChanges(): void {
-    this.Lista = [];
-
     this.Iniciar();
   }
 
   public Iniciar() {
     this.listaNumber = 1;
+    this.listaForEach = 1;
 
     this.ListaList$ = this.service.getListUserId(this.userId);
     this.ListaList$.forEach(d => {
       if (d.length > 0)
-        d.forEach(x => { this.listaNumber = this.listaNumber + 1 });
-      else
-        this.listaNumber = 1;
+        d.forEach(x => {
+          if (this.listaForEach > d.length) { }
+          else
+            this.listaNumber = this.listaNumber + 1;
+
+          this.listaForEach = this.listaForEach + 1;
+        });
     });
   }
 
@@ -75,12 +72,6 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
     }
   }
 
-  public ModalCard(idList: number) {
-    this.criarModal = true;
-    this.createCard = true;
-    this.listId = idList;
-  }
-
   public CreateList() {
     var newList = {
       listName: this.listName,
@@ -89,6 +80,7 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
       idUser: this.userId,
       listNumber: this.listaNumber
     };
+
     this.service.addList(newList)
       .subscribe(result => {
         if (result.idL != 0) {
@@ -104,63 +96,16 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
       });
   }
 
-  public CreateCard() {
-    var newCard = {
-      name: this.cardName,
-      text: this.cardText,
-      priority: this.priority,
-      userId: this.userId,
-      listId: this.listId
-    };
-    this.service.addCard(newCard)
-      .subscribe(result => {
-        if (result.id != 0) {
-          this.criarModal = false;
-          this.createCard = false;
-          this.Iniciar();
-          this.cardName = "";
-          this.cardText = "";
-          this.priority = false;
-        }
-        else {
-          alert("ERRO");
-        }
-      });
-    this.listId = 0;
-  }
-
-  public EditCard(id: number) {
-    this.service.getCardsById(id).subscribe(r => {
-      this.cardName = r.name;
-      this.cardText = r.text;
-      this.cardId = r.id;
-    });
-  }
-
-  public SalvarEdit() {
-    var Card = {
-      name: this.cardName,
-      text: this.cardText,
-      priority: this.priority,
-      userId: this.userId,
-      listId: this.listId
-    };
-    this.service.updateCard(this.cardId, Card).subscribe(r => {
-    });
-  }
-
   public FecharModal() {
     this.criarModal = false;
     this.createList = false;
-    this.createCard = false;
     this.editCard = false;
   }
 
   public ApagarLista(idLIsta: number, listaNumber: number) {
     this.service.deleteCards(listaNumber, this.userId).subscribe();
     this.service.deleteListByUser(listaNumber, this.userId).subscribe();
-    this.Lista = [];
-
+    window.location.reload();
     this.Iniciar();
   }
 
@@ -168,8 +113,9 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
 
   }
 
+}
 
-  /*Lixo pra DEPOIS*/
+/*Lixo pra DEPOIS*/
 
   // this.LoadCard();
   //this.ListaList$.forEach(d => d.forEach(x => console.log(x.card)));
@@ -194,4 +140,47 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
   //   },(err) => console.log(err));
   //   console.log(this.ListaList$.forEach(d => d.forEach(x => console.log(x.card))));
   // }
-}
+    // public EditCard(id: number) {
+  //   this.service.getCardsById(id).subscribe(r => {
+  //     this.cardName = r.name;
+  //     this.cardText = r.text;
+  //     this.cardId = r.id;
+  //   });
+  // }
+
+  // public SalvarEdit() {
+  //   var Card = {
+  //     name: this.cardName,
+  //     text: this.cardText,
+  //     priority: this.priority,
+  //     userId: this.userId,
+  //     listId: this.listId
+  //   };
+  //   this.service.updateCard(this.cardId, Card).subscribe(r => {
+  //   });
+  // }
+
+  // public CreateCard() {
+  //   var newCard = {
+  //     name: this.cardName,
+  //     text: this.cardText,
+  //     priority: this.priority,
+  //     userId: this.userId,
+  //     listId: this.listId
+  //   };
+  //   this.service.addCard(newCard)
+  //     .subscribe(result => {
+  //       if (result.id != 0) {
+  //         this.Iniciar();
+  //       }
+  //       else {
+  //         alert("ERRO");
+  //       }
+  //     });
+  //   this.listId = 0;
+  // }
+  // public ModalCard(idList: number) {
+  //   this.criarModal = true;
+  //   this.createCard = true;
+  //   this.listId = idList;
+  // }

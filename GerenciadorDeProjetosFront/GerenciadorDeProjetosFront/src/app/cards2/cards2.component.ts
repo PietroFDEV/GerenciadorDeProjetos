@@ -30,8 +30,8 @@ export class Cards2Component implements OnInit, OnChanges {
     });
   }
 
-  public EditCard(idCard: number, numeroEdit: number) {
-    this.route.navigate(['/modal-card/' + idCard, { idCard: idCard, numero: numeroEdit, userId: this.userId }]);
+  public EditCard(idCard: number, numeroEdit: number, listaNumber: number) {
+    this.route.navigate(['/modal-card/' + idCard, { idCard: idCard, numero: numeroEdit, userId: this.userId, numeroLista: listaNumber }]);
   }
 
 }

@@ -7,6 +7,7 @@ export interface CardModel {
     priority: boolean,
     userId: number,
     listId: number,
+    listNumber: number,
     haveDeadline?: boolean
 
 }

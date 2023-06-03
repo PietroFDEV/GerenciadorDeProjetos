@@ -26,9 +26,10 @@ export class ModalCardComponent implements OnInit {
   ngOnInit(): void {
     this.acRoute.params.subscribe(d => {
       this.cardId = JSON.parse(d['idCard']);
-      this.numeroLista = JSON.parse(d['idCard']);
+      this.numeroLista = JSON.parse(d['numeroLista']);
       this.numeroCategoria = JSON.parse(d['numero']);
       this.userId = JSON.parse(d['userId']);
+
 
 
       if (this.numeroCategoria == 2) {
@@ -44,16 +45,29 @@ export class ModalCardComponent implements OnInit {
   }
 
   public CreateCard() {
-
+    var Card = {
+      name: this.cardName,
+      text: this.cardText,
+      priority: this.priority,
+      userID: this.userId,
+      listNumber: this.numeroLista
+    };
+    this.service.addCard(Card).subscribe(r => {
+      if (r != null)
+        this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
+    });
   }
 
   public SalvarEdit() {
     var Card = {
-      name: this.cardName,
-      text: this.cardText,
-      priority: this.priority
+      name: this.card.name,
+      text: this.card.text,
+      priority: this.card.priority,
+      userID: this.userId,
+      listNumber: this.numeroLista
     };
     this.service.updateCard(this.cardId, Card).subscribe(r => {
+      this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
     });
   }
 }

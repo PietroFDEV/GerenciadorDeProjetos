@@ -30,6 +30,11 @@
             <label class="form-label">Não</label>
           </div>
 
+          <div *ngIf="priority">
+            <input type="date"
+            ng-model="deadline">
+          </div>
+
         </div>
       </div>
       <div class="modal-footer">
@@ -54,8 +59,8 @@
           </div>
 
           <div class="form-outline form-white mb-4">
-            <input type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="card.text"
-              [ngModelOptions]="{standalone: true}" />
+            <textarea type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="card.text"
+              [ngModelOptions]="{standalone: true}"></textarea>
             <label class="form-label" for="typeEmailX">Texto do Card</label>
           </div>
 
@@ -67,12 +72,20 @@
             <label class="form-label">Não</label>
           </div>
 
+          <div *ngIf="card.priority">
+            <input type="date"
+            ng-model="card.deadline">
+          </div>
+
+
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="Voltar()">Voltar</button>
-        <button type="button" class="btn btn-primary" (click)="SalvarEdit()">Salvar</button>
+      <div class="modal-footer d-flex flex-row justify-content-between align-content-center">
         <button type="button" class="btn btn-danger" (click)="ApagarCard()">Apagar</button>
+        <div class="gap-2 d-flex flex-row">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="Voltar()">Voltar</button>
+          <button type="button" class="btn btn-primary" (click)="SalvarEdit()">Salvar</button>
+        </div>
       </div>
     </div>
   </div>

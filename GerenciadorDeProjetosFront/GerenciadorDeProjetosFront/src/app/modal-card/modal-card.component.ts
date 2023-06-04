@@ -22,6 +22,7 @@ export class ModalCardComponent implements OnInit {
   numeroLista: number = 0;
   numeroCategoria: number = 0;
   userId: number = 0;
+  deadline!: Date;
 
   ngOnInit(): void {
     this.acRoute.params.subscribe(d => {
@@ -48,6 +49,7 @@ export class ModalCardComponent implements OnInit {
     var Card = {
       name: this.cardName,
       text: this.cardText,
+      deadline: this.deadline,
       priority: this.priority,
       userID: this.userId,
       listNumber: this.numeroLista
@@ -64,6 +66,7 @@ export class ModalCardComponent implements OnInit {
       text: this.card.text,
       priority: this.card.priority,
       userID: this.userId,
+      deadline: this.card.deadline,
       listNumber: this.numeroLista
     };
     this.service.updateCard(this.cardId, Card).subscribe(r => {

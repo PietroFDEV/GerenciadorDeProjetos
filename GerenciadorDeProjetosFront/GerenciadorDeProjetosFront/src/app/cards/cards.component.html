@@ -8,7 +8,7 @@
     </div>
     <div class="ms-5  d-flex flex-column justify-content-around align-items-end gap-1">
       <span class="badge bg-primary rounded-pill">{{ card.createDate | date:'dd-MM' }}</span>
-      <span class="badge bg-danger" *ngIf="card.haveDeadline">{{ card.deadline | date:'dd-MM' }}</span>
+      <span class="badge bg-danger rounded-pill" *ngIf="card.deadline != null">{{ card.deadline | date:'dd-MM' }}</span>
     </div>
   </li>
   <li class="mt-2 mb-2 d-flex list-group-item-action justify-content-between align-items-start text-white"

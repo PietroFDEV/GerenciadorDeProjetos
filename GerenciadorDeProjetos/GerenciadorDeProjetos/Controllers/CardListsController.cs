@@ -96,7 +96,7 @@ namespace GerenciadorDeProjetos.Controllers
                 return Problem("Entity set 'DataContext.CardList'  is null.");
             }
             cardList.CreateDate = DateTime.Now;
-            cardList.Deadline = DateTime.Now;
+            //cardList.Deadline = DateTime.Now;
             _context.CardList.Add(cardList);
             await _context.SaveChangesAsync();
 
@@ -161,7 +161,7 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet("GetCardListByUserId/{UserId}/{NumberList}")]
         public ActionResult<IEnumerable<CardList>> GetCardListByUserId(int UserId, int NumberList)
         {
-            return _context.CardList.Where(d => d.UserId == UserId && d.ListNumber == NumberList).ToList();
+            return _context.CardList.Where(d => d.UserId == UserId && d.ListNumber == NumberList).OrderByDescending(d => d.Priority).OrderBy(d => d.Deadline).ToList();
         }
     }
 }

@@ -84,10 +84,12 @@ export class ApiGerenciadorService {
   }
 
   addCard(data: any): Observable<CardModel> {
+    debugger
     return this.http.post<CardModel>(this.gerenciadorAPIUrl + '/CardLists', data)
   }
 
   updateCard(id: number, data: any) {
+    debugger
     return this.http.put(this.gerenciadorAPIUrl + `/CardLists/${id}`, data)
   }
 

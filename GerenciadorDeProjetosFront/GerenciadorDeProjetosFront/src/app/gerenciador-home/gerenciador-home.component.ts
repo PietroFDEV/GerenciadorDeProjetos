@@ -101,6 +101,7 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
     this.criarModal = false;
     this.createList = false;
     this.editCard = false;
+    this.editList = false;
   }
 
   public ApagarLista(idLIsta: number, listaNumber: number) {

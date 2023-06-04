@@ -21,6 +21,7 @@ export class CardsComponent implements OnInit, OnChanges {
 
     this.service.getCardList(this.userId, 1).subscribe(d => {
       this.cardList = d;
+      console.log(this.cardList);
     });
   }
 

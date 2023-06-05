@@ -17,6 +17,7 @@ import { ModalCardComponent } from './modal-card/modal-card.component';
 import { Cards4Component } from './cards4/cards4.component';
 import { Cards5Component } from './cards5/cards5.component';
 import { Cards6Component } from './cards6/cards6.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { Cards6Component } from './cards6/cards6.component';
       { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'gerenciador-home/:iduser', component: GerenciadorHomeComponent },
       { path: 'modal-card/:idcard', component: ModalCardComponent }
-    ])
+    ]),
+    BrowserAnimationsModule
   ],
   providers: [ApiGerenciadorService, DatePipe],
   bootstrap: [AppComponent]

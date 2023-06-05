@@ -30,6 +30,14 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
   listaNumber: number = 1;
   listaForEach: number = 0;
   listNumberDelete: number = 0;
+
+  cardList1: CardModel[] = [];
+  cardList2: CardModel[] = [];
+  cardList3: CardModel[] = [];
+  cardList4: CardModel[] = [];
+  cardList5: CardModel[] = [];
+  cardList6: CardModel[] = [];
+
   
 
   //List atributes
@@ -65,6 +73,13 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
           this.listaForEach = this.listaForEach + 1;
         });
     });
+    this.service.getCardList(this.userId, 1).subscribe(d => {
+      this.cardList1 = d;
+    });
+  }
+  
+  public EditCard(idCard: number, numeroEdit: number, listaNumber: number) {
+    this.route.navigate(['/modal-card/' + idCard, { idCard: idCard, numero: numeroEdit, userId: this.userId, numeroLista: listaNumber }]);
   }
 
   public ModalCreate(num: number) {

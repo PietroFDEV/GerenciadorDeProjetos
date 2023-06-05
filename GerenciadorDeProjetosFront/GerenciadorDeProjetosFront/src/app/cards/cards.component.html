@@ -1,5 +1,5 @@
-<div href="#" class="list-group-item bg-dark text-white d-grid gap-3 rounded-bottom" aria-current="true">
-  <li
+<div href="#" class="list-group-item bg-dark text-white d-grid gap-3 rounded-bottom" aria-current="true" cdkDropList>
+  <li cdkDrag
     class="rounded list-group-item d-flex list-group-item-action justify-content-between bg-dark text-white border border-light btn-outline-info align-items-start gap-1"
     *ngFor="let card of cardList" (click)="EditCard(card.id, 1,1)">
     <div class="ms-2 ">

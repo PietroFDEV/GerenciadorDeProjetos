@@ -160,8 +160,7 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet("GetCardListByUserId/{UserId}/{NumberList}")]
         public ActionResult<IEnumerable<CardList>> GetCardListByUserId(int UserId, int NumberList)
         {
-            
-            return _context.CardList.Where(d => d.UserId == UserId && d.ListNumber == NumberList).OrderByDescending(d => d.Deadline).ToList();
+            return _context.CardList.Where(d => d.UserId == UserId && d.ListNumber == NumberList).OrderByDescending(d => d.Deadline != null).ThenBy(d => d.Deadline).ToList();
         }
     }
 }

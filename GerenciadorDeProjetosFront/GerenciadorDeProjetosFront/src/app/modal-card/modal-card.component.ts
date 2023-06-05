@@ -23,6 +23,9 @@ export class ModalCardComponent implements OnInit {
   numeroCategoria: number = 0;
   userId: number = 0;
   deadline!: Date;
+  infNome: boolean = false;
+  infText: boolean = false;
+  infData: boolean = false;
 
   ngOnInit(): void {
     this.acRoute.params.subscribe(d => {
@@ -46,32 +49,56 @@ export class ModalCardComponent implements OnInit {
   }
 
   public CreateCard() {
-    var Card = {
-      name: this.cardName,
-      text: this.cardText,
-      deadline: this.deadline,
-      priority: this.priority,
-      userID: this.userId,
-      listNumber: this.numeroLista
-    };
-    this.service.addCard(Card).subscribe(r => {
-      if (r != null)
-        this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
-    });
+    this.infNome = false;
+    this.infText = false;
+    this.infData = false;
+
+    if(this.cardName == ""){
+      this.infNome = true;
+    } else if(this.cardText == ""){
+      this.infText = true;
+    }else if(this.priority == true && this.deadline == null){
+      this.infData = true;
+    }else{
+      var Card = {
+        name: this.cardName,
+        text: this.cardText,
+        deadline: this.deadline,
+        priority: this.priority,
+        userID: this.userId,
+        listNumber: this.numeroLista
+      };
+      this.service.addCard(Card).subscribe(r => {
+        if (r != null)
+          this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
+      });
+    }
   }
 
   public SalvarEdit() {
-    var Card = {
-      name: this.card.name,
-      text: this.card.text,
-      priority: this.card.priority,
-      userID: this.userId,
-      deadline: this.card.deadline,
-      listNumber: this.numeroLista
-    };
-    this.service.updateCard(this.cardId, Card).subscribe(r => {
-      this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
-    });
+    this.infNome = false;
+    this.infText = false;
+    this.infData = false;
+
+    if(this.card.name == ""){
+      this.infNome = true;
+    } else if(this.card.text == ""){
+      this.infText = true;
+    }else if(this.card.priority == true && this.card.deadline == null){
+      this.infData = true;
+    }else{
+      var Card = {
+        name: this.card.name,
+        text: this.card.text,
+        priority: this.card.priority,
+        userID: this.userId,
+        deadline: this.card.deadline,
+        listNumber: this.numeroLista
+      };
+      this.service.updateCard(this.cardId, Card).subscribe(r => {
+        this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
+      });
+    }
   }
 
   public ApagarCard() {

@@ -12,13 +12,13 @@
 
           <div class="form-outline form-white mb-4">
             <input type="email" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="cardName"
-              [ngModelOptions]="{standalone: true}" />
+              [ngModelOptions]="{standalone: true}" required/>
             <label class="form-label" for="typeEmailX">Nome Card</label>
           </div>
 
           <div class="form-outline form-white mb-4">
-            <input type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="cardText"
-              [ngModelOptions]="{standalone: true}" />
+            <textarea type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="cardText"
+              [ngModelOptions]="{standalone: true}" required></textarea>
             <label class="form-label" for="typeEmailX">Texto do Card</label>
           </div>
 
@@ -32,7 +32,17 @@
 
           <div *ngIf="priority">
             <input type="date"
-            ng-model="deadline">
+            [(ngModel)]="deadline">
+          </div>
+
+          <div *ngIf="infNome">
+            <p style="color: red;">Informe o Nome</p>
+          </div>
+          <div *ngIf="infText">
+            <p style="color: red;">Informe o Texto</p>
+          </div>
+          <div *ngIf="infData">
+            <p style="color: red;">Informe o Data</p>
           </div>
 
         </div>
@@ -55,12 +65,12 @@
           <div class="form-outline form-white mb-4">
             <input type="email" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="card.name"
               [ngModelOptions]="{standalone: true}" />
-            <label class="form-label" for="typeEmailX">Nome Card</label>
+            <label class="form-label" for="typeEmailX" required>Nome Card</label>
           </div>
 
           <div class="form-outline form-white mb-4">
             <textarea type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="card.text"
-              [ngModelOptions]="{standalone: true}"></textarea>
+              [ngModelOptions]="{standalone: true}" required></textarea>
             <label class="form-label" for="typeEmailX">Texto do Card</label>
           </div>
 
@@ -74,9 +84,18 @@
 
           <div *ngIf="card.priority">
             <input type="date"
-            ng-model="card.deadline">
+            [(ngModel)]="card.deadline">
           </div>
 
+          <div *ngIf="infNome">
+            <p style="color: red;">Informe o Nome</p>
+          </div>
+          <div *ngIf="infText">
+            <p style="color: red;">Informe o Texto</p>
+          </div>
+          <div *ngIf="infData">
+            <p style="color: red;">Informe o Data</p>
+          </div>
 
         </div>
       </div>
@@ -88,5 +107,6 @@
         </div>
       </div>
     </div>
+    
   </div>
 </div>

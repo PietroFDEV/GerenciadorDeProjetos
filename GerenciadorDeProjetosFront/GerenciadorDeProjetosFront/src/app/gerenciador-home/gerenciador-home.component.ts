@@ -26,8 +26,10 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
   createList: boolean = false;
   editList: boolean = false;
   editCard: boolean = false;
+  deleteList: boolean = false;
   listaNumber: number = 1;
   listaForEach: number = 0;
+  listNumberDelete: number = 0;
   
 
   //List atributes
@@ -100,13 +102,18 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
   public FecharModal() {
     this.criarModal = false;
     this.createList = false;
-    this.editCard = false;
+    this.deleteList = false;
     this.editList = false;
   }
 
   public ApagarLista(idLIsta: number, listaNumber: number) {
-    this.service.deleteCards(listaNumber, this.userId).subscribe();
-    this.service.deleteListByUser(listaNumber, this.userId).subscribe();
+    this.listNumberDelete = listaNumber;
+    this.deleteList = true;
+  }
+
+  public SalvarDeletList() {
+    this.service.deleteCards(this.listNumberDelete, this.userId).subscribe();
+    this.service.deleteListByUser(this.listNumberDelete, this.userId).subscribe();
     window.location.reload();
   }
 

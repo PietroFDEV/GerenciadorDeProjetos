@@ -18,7 +18,7 @@
         <div class="gap-1 d-flex flex-row ">
           <a class="btn btn-info text-white btn-sm btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal"
             (click)="EditarLista(item.id)">Editar</a>
-          <a class="btn btn-danger text-white btn-sm btn-block"
+          <a class="btn btn-danger text-white btn-sm btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal"
             (click)="ApagarLista(item.id, item.listNumber)">Apagar</a>
         </div>
 
@@ -66,14 +66,6 @@
             <label class="form-label" for="typeEmailX">Nome Lista</label>
           </div>
 
-          <!-- <div class="form-outline form-white mb-4">
-            <label class="mr-1">Prioridade</label>
-            <input type="radio" [value]="true" [(ngModel)]="priority" />
-            <label class="form-label">Sim</label>
-            <input type="radio" [value]="false" [(ngModel)]="priority" />
-            <label class="form-label">Não</label>
-          </div> -->
-
         </div>
       </div>
       <div class="modal-footer">
@@ -97,20 +89,26 @@
             <label class="form-label" for="typeEmailX">Nome Lista</label>
           </div>
 
-          <!-- <div class="form-outline form-white mb-4">
-            <label class="mr-1">Prioridade</label>
-            <input type="radio" [value]="true" [(ngModel)]="priority" />
-            <label class="form-label">Sim</label>
-            <input type="radio" [value]="false" [(ngModel)]="priority" />
-            <label class="form-label">Não</label>
-          </div> -->
-
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="FecharModal()">Fechar</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="SalvarEditList()">Salvar</button>
       </div>
+    </div>
+    <!--DELETE LISTA-->
+    <div class="modal-content" *ngIf="deleteList">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Apague sua Lista</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body flex flex-row justify-content-between text-center">
+
+          <button type="button" class="btn btn-secondary btn-lg m-lg-2" data-bs-dismiss="modal" (click)="FecharModal()">Fechar</button>
+          <button type="button" class="btn btn-danger btn-lg m-lg-2" data-bs-dismiss="modal" (click)="SalvarDeletList()">Salvar</button>
+
+      </div>
+
     </div>
   </div>
 </div>

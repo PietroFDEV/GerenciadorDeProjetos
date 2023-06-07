@@ -56,7 +56,8 @@ namespace GerenciadorDeProjetos.Migrations
                     Priority = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ListId = table.Column<int>(type: "int", nullable: true),
-                    ListNumber = table.Column<int>(type: "int", nullable: false)
+                    ListNumber = table.Column<int>(type: "int", nullable: false),
+                    IdTag = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

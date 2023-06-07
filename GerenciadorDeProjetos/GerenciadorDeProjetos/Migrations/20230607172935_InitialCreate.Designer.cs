@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciadorDeProjetos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230531183222_InitialCreate")]
+    [Migration("20230607172935_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,6 +38,9 @@ namespace GerenciadorDeProjetos.Migrations
 
                     b.Property<DateTime?>("Deadline")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("IdTag")
+                        .HasColumnType("int");
 
                     b.Property<int?>("ListId")
                         .HasColumnType("int");

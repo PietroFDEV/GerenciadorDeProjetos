@@ -8,6 +8,6 @@ export interface CardModel {
     userId: number,
     listId: number,
     listNumber: number,
-    haveDeadline?: boolean
-
+    haveDeadline?: boolean,
+    idTag?: boolean
 }

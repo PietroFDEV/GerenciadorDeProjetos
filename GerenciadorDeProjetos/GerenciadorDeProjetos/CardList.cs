@@ -16,6 +16,7 @@ namespace GerenciadorDeProjetos
         public int UserId { get; set; }
         public int? ListId { get; set; }
         public int ListNumber { get; set; }
+        public int? IdTag { get; set; }
 
     }
 }

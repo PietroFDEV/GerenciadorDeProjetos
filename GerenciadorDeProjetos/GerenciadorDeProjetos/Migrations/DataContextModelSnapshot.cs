@@ -36,6 +36,9 @@ namespace GerenciadorDeProjetos.Migrations
                     b.Property<DateTime?>("Deadline")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("IdTag")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ListId")
                         .HasColumnType("int");
 

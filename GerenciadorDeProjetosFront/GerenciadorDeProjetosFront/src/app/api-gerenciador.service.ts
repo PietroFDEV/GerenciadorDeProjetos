@@ -89,7 +89,6 @@ export class ApiGerenciadorService {
   }
 
   updateCard(id: number, data: any) {
-    debugger
     return this.http.put(this.gerenciadorAPIUrl + `/CardLists/${id}`, data)
   }
 

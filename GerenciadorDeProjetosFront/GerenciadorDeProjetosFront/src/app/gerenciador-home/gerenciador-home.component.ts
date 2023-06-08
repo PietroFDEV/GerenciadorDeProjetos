@@ -76,6 +76,21 @@ export class GerenciadorHomeComponent implements OnInit, OnChanges {
     this.service.getCardList(this.userId, 1).subscribe(d => {
       this.cardList1 = d;
     });
+    this.service.getCardList(this.userId, 2).subscribe(d => {
+      this.cardList2 = d;
+    });
+    this.service.getCardList(this.userId, 3).subscribe(d => {
+      this.cardList3 = d;
+    });
+    this.service.getCardList(this.userId, 4).subscribe(d => {
+      this.cardList4 = d;
+    });
+    this.service.getCardList(this.userId, 5).subscribe(d => {
+      this.cardList5 = d;
+    });
+    this.service.getCardList(this.userId, 6).subscribe(d => {
+      this.cardList6 = d;
+    });
   }
   
   public EditCard(idCard: number, numeroEdit: number, listaNumber: number) {

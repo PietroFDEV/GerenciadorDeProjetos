@@ -11,12 +11,7 @@ import { ApiGerenciadorService } from './api-gerenciador.service';
 import { LoginComponent } from './login/login.component';
 import { DatePipe } from '@angular/common';
 import { CardsComponent } from './cards/cards.component';
-import { Cards2Component } from './cards2/cards2.component';
-import { Cards3Component } from './cards3/cards3.component';
 import { ModalCardComponent } from './modal-card/modal-card.component';
-import { Cards4Component } from './cards4/cards4.component';
-import { Cards5Component } from './cards5/cards5.component';
-import { Cards6Component } from './cards6/cards6.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -25,12 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     GerenciadorHomeComponent,
     LoginComponent,
     CardsComponent,
-    Cards2Component,
-    Cards3Component,
-    ModalCardComponent,
-    Cards4Component,
-    Cards5Component,
-    Cards6Component
+    ModalCardComponent
+
   ],
   imports: [
     BrowserModule,

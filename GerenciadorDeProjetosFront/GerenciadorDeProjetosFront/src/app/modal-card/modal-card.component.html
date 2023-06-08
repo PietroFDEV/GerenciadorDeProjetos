@@ -74,12 +74,24 @@
             <label class="form-label" for="typeEmailX">Texto do Card</label>
           </div>
 
-          <div class="form-outline form-white mb-4">
-            <label class="mr-1">Prioridade</label>
+          <div class="form-outline form-white mb-1">
+            <select class="form-control form-select-sm w-50" [(ngModel)]="card.idTag">
+              <option [value]="null" >Nenhum</option>
+              <option [value]="1">Revisado</option>
+              <option [value]="2">Priorizado</option>
+              <option [value]="3">Processamento</option>
+              <option [value]="4">Finalizado</option>
+              <option [value]="5">Descartado</option>
+            </select>
+            <label class="form-label" for="typeEmailX">Categorias</label>
+          </div>
+
+          <div class="form-outline form-white mb-1">
+            <label class="mr-1 form-label m-2">Prioridade:</label>
             <input type="radio" [value]="true" [(ngModel)]="card.priority" />
-            <label class="form-label">Sim</label>
+            <label class="form-label mr-2">Sim</label>
             <input type="radio" [value]="false" [(ngModel)]="card.priority" />
-            <label class="form-label">Não</label>
+            <label class="form-label mr-2">Não</label>
           </div>
 
           <div *ngIf="card.priority">

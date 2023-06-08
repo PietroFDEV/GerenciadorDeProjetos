@@ -26,6 +26,7 @@ export class ModalCardComponent implements OnInit {
   infNome: boolean = false;
   infText: boolean = false;
   infData: boolean = false;
+  idTag!: number;
 
   ngOnInit(): void {
     this.acRoute.params.subscribe(d => {
@@ -53,13 +54,13 @@ export class ModalCardComponent implements OnInit {
     this.infText = false;
     this.infData = false;
 
-    if(this.cardName == ""){
+    if (this.cardName == "") {
       this.infNome = true;
-    } else if(this.cardText == ""){
+    } else if (this.cardText == "") {
       this.infText = true;
-    }else if(this.priority == true && this.deadline == null){
+    } else if (this.priority == true && this.deadline == null) {
       this.infData = true;
-    }else{
+    } else {
       var Card = {
         name: this.cardName,
         text: this.cardText,
@@ -80,24 +81,43 @@ export class ModalCardComponent implements OnInit {
     this.infText = false;
     this.infData = false;
 
-    if(this.card.name == ""){
+    if (this.card.name == "") {
       this.infNome = true;
-    } else if(this.card.text == ""){
+    } else if (this.card.text == "") {
       this.infText = true;
-    }else if(this.card.priority == true && this.card.deadline == null){
+    } else if (this.card.priority == true && this.card.deadline == null) {
       this.infData = true;
-    }else{
-      var Card = {
-        name: this.card.name,
-        text: this.card.text,
-        priority: this.card.priority,
-        userID: this.userId,
-        deadline: this.card.deadline,
-        listNumber: this.numeroLista
-      };
-      this.service.updateCard(this.cardId, Card).subscribe(r => {
-        this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
-      });
+    } else {
+      debugger
+
+      if (this.card.idTag == null) {
+        var Card = {
+          name: this.card.name,
+          text: this.card.text,
+          priority: this.card.priority,
+          userID: this.userId,
+          deadline: this.card.deadline,
+          listNumber: this.numeroLista,
+          idTag: null
+        };
+        this.service.updateCard(this.cardId, Card).subscribe(r => {
+          this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
+        });
+      } else {
+        var CardB = {
+          name: this.card.name,
+          text: this.card.text,
+          priority: this.card.priority,
+          userID: this.userId,
+          deadline: this.card.deadline,
+          listNumber: this.numeroLista,
+          idTag: this.card.idTag
+        };
+        this.service.updateCard(this.cardId, CardB).subscribe(r => {
+          this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
+        });
+      }
+
     }
   }
 
@@ -105,6 +125,6 @@ export class ModalCardComponent implements OnInit {
     this.service.deleteCard(this.cardId).subscribe(r => {
       this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
     });
-    
+
   }
 }

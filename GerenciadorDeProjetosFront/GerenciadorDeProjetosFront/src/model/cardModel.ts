@@ -9,5 +9,5 @@ export interface CardModel {
     listId: number,
     listNumber: number,
     haveDeadline?: boolean,
-    idTag?: boolean
+    idTag?: number
 }

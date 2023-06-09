@@ -12,6 +12,21 @@ namespace GerenciadorDeProjetos.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "CheckList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdCard = table.Column<int>(type: "int", nullable: false),
+                    Check = table.Column<bool>(type: "bit", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CheckList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "List",
                 columns: table => new
                 {
@@ -57,7 +72,8 @@ namespace GerenciadorDeProjetos.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ListId = table.Column<int>(type: "int", nullable: true),
                     ListNumber = table.Column<int>(type: "int", nullable: false),
-                    IdTag = table.Column<int>(type: "int", nullable: true)
+                    IdTag = table.Column<int>(type: "int", nullable: true),
+                    CheckList = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,6 +96,9 @@ namespace GerenciadorDeProjetos.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CardList");
+
+            migrationBuilder.DropTable(
+                name: "CheckList");
 
             migrationBuilder.DropTable(
                 name: "loginUsers");

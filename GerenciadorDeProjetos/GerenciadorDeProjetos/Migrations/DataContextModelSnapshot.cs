@@ -30,6 +30,9 @@ namespace GerenciadorDeProjetos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("CheckList")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -66,6 +69,30 @@ namespace GerenciadorDeProjetos.Migrations
                     b.HasIndex("ListId");
 
                     b.ToTable("CardList");
+                });
+
+            modelBuilder.Entity("GerenciadorDeProjetos.CheckList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Check")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("IdCard")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CheckList");
                 });
 
             modelBuilder.Entity("GerenciadorDeProjetos.List", b =>

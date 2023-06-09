@@ -17,6 +17,7 @@ namespace GerenciadorDeProjetos
         public int? ListId { get; set; }
         public int ListNumber { get; set; }
         public int? IdTag { get; set; }
+        public bool CheckList { get; set; }
 
     }
 }

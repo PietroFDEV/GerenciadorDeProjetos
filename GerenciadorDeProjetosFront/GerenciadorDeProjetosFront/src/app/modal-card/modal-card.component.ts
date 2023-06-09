@@ -88,7 +88,7 @@ export class ModalCardComponent implements OnInit {
     } else if (this.card.priority == true && this.card.deadline == null) {
       this.infData = true;
     } else {
-      if (this.card.idTag == null) {
+      if (this.card.idTag == 0) {
         var Card = {
           name: this.card.name,
           text: this.card.text,

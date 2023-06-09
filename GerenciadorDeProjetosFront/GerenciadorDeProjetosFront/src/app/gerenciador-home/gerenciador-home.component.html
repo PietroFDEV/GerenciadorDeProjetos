@@ -7,11 +7,11 @@
   </div>
 </nav> -->
 <!--------------------------------------LISTAS-------------------------------------->
-<div class="d-flex flex-row bd-highlight p-5 align-items-start">
-  <div class="list-group p-2 bd-highlight" *ngFor="let item of ListaList$|async;let i = index">
-    <div *ngIf="item != null" class="rounded">
+<div class="d-flex flex-row bd-highlight bg-gradient p-5 align-items-start">
+  <div class="list-group p-1 m-1 bd-highlight bg-gradient" *ngFor="let item of ListaList$|async;let i = index">
+    <div *ngIf="item != null" class="rounded bg-gradient">
       <div href="#"
-        class="list-group-item list-group-item-primary d-flex flex-row justify-content-between align-content-center"
+        class="list-group-item list-group-item-dark d-flex flex-row justify-content-between align-content-center bg-gradient"
         aria-current="true">
         {{ item.listName }}
 
@@ -25,14 +25,16 @@
       </div>
 
       <!--List1-->
-      <div href="#" class="list-group-item bg-dark text-white d-grid gap-1 rounded-bottom" aria-current="true"
-        *ngIf="item.listNumber == 1" cdkDropList>
-        <li cdkDrag
-          class="rounded border border-light list-group-item p-1"
-          *ngFor="let card of cardList1" (click)="EditCard(card.id, 1,1)" [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
+      <div href="#"
+        class="list-group-item list-group-item-action bg-dark text-white d-grid gap-1 rounded-bottom bg-gradient"
+        aria-current="true" *ngIf="item.listNumber == 1" cdkDropList>
+        <li cdkDrag class="rounded border border-light list-group-item p-1 bg-gradient" *ngFor="let card of cardList1"
+          (click)="EditCard(card.id, 1,1)"
+          [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
 
-          <div class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
-            <div class="ms-2 ">
+          <div
+            class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
+            <div class="ms-2">
               <div class="fw-bold">{{ card.name }}</div>
               {{ card.text }}
             </div>
@@ -44,10 +46,11 @@
           </div>
 
         </li>
-        <li class="mt-2 mb-2 d-flex list-group-item-action justify-content-between align-items-start text-white"
+        <li class="mt-2 mb-2 d-flex justify-content-between align-items-start text-white text-center"
           (click)="EditCard(1,2,1)">
-          <div href="#" class="d-flex flex-row bd-highlight align-items-start" aria-current="true">
-            <button type="button" class="btn btn-success bg-dark text-white btn-outline-light btn-lg">
+          <div href="#" class="d-flex flex-row bd-highlight align-items-start m-auto" aria-current="true">
+            <button type="button"
+              class="btn btn-success bg-dark text-white btn-outline-light btn-lg bg-gradient list-group-item-action">
               <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor"
                 class="bi bi-plus mx-auto" viewBox="0 0 16 16">
                 <path
@@ -59,13 +62,15 @@
       </div>
 
       <!--List2-->
-      <div href="#" class="list-group-item bg-dark text-white d-grid gap-1 rounded-bottom" aria-current="true"
-        *ngIf="item.listNumber == 2" cdkDropList>
-        <li cdkDrag
-          class="rounded border border-light list-group-item p-1"
-          *ngFor="let card of cardList2" (click)="EditCard(card.id, 1,2)" [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
+      <div href="#"
+        class="list-group-item list-group-item-action bg-dark text-white d-grid gap-1 rounded-bottom bg-gradient"
+        aria-current="true" *ngIf="item.listNumber == 2" cdkDropList>
+        <li cdkDrag class="rounded border border-light list-group-item p-1" *ngFor="let card of cardList2"
+          (click)="EditCard(card.id, 1,2)"
+          [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
 
-          <div class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
+          <div
+            class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
             <div class="ms-2 ">
               <div class="fw-bold">{{ card.name }}</div>
               {{ card.text }}
@@ -78,10 +83,11 @@
           </div>
 
         </li>
-        <li class="mt-2 mb-2 d-flex list-group-item-action justify-content-between align-items-start text-white"
+        <li class="mt-2 mb-2 d-flex justify-content-between align-items-start text-white text-center"
           (click)="EditCard(1,2,2)">
-          <div href="#" class="d-flex flex-row bd-highlight align-items-start" aria-current="true">
-            <button type="button" class="btn btn-success bg-dark text-white btn-outline-light btn-lg">
+          <div href="#" class="d-flex flex-row bd-highlight align-items-start m-auto" aria-current="true">
+            <button type="button"
+              class="btn btn-success bg-dark text-white btn-outline-light btn-lg bg-gradient list-group-item-action">
               <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor"
                 class="bi bi-plus mx-auto" viewBox="0 0 16 16">
                 <path
@@ -93,13 +99,15 @@
       </div>
 
       <!--List3-->
-      <div href="#" class="list-group-item bg-dark text-white d-grid gap-1 rounded-bottom" aria-current="true"
-        *ngIf="item.listNumber == 3" cdkDropList>
-        <li cdkDrag
-          class="rounded border border-light list-group-item p-1"
-          *ngFor="let card of cardList3" (click)="EditCard(card.id, 1,3)" [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
+      <div href="#"
+        class="list-group-item list-group-item-action bg-dark text-white d-grid gap-1 rounded-bottom bg-gradient"
+        aria-current="true" *ngIf="item.listNumber == 3" cdkDropList>
+        <li cdkDrag class="rounded border border-light list-group-item p-1" *ngFor="let card of cardList3"
+          (click)="EditCard(card.id, 1,3)"
+          [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
 
-          <div class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
+          <div
+            class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
             <div class="ms-2 ">
               <div class="fw-bold">{{ card.name }}</div>
               {{ card.text }}
@@ -112,10 +120,11 @@
           </div>
 
         </li>
-        <li class="mt-2 mb-2 d-flex list-group-item-action justify-content-between align-items-start text-white"
+        <li class="mt-2 mb-2 d-flex justify-content-between align-items-start text-white text-center"
           (click)="EditCard(1,2,3)">
-          <div href="#" class="d-flex flex-row bd-highlight align-items-start" aria-current="true">
-            <button type="button" class="btn btn-success bg-dark text-white btn-outline-light btn-lg">
+          <div href="#" class="d-flex flex-row bd-highlight align-items-start m-auto" aria-current="true">
+            <button type="button"
+              class="btn btn-success bg-dark text-white btn-outline-light btn-lg bg-gradient list-group-item-action">
               <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor"
                 class="bi bi-plus mx-auto" viewBox="0 0 16 16">
                 <path
@@ -127,13 +136,15 @@
       </div>
 
       <!--List4-->
-      <div href="#" class="list-group-item bg-dark text-white d-grid gap-1 rounded-bottom" aria-current="true"
-        *ngIf="item.listNumber == 4" cdkDropList>
-        <li cdkDrag
-          class="rounded border border-light list-group-item p-1"
-          *ngFor="let card of cardList4" (click)="EditCard(card.id, 1,4)" [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
+      <div href="#"
+        class="list-group-item list-group-item-action bg-dark text-white d-grid gap-1 rounded-bottom bg-gradient"
+        aria-current="true" *ngIf="item.listNumber == 4" cdkDropList>
+        <li cdkDrag class="rounded border border-light list-group-item p-1" *ngFor="let card of cardList4"
+          (click)="EditCard(card.id, 1,4)"
+          [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
 
-          <div class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
+          <div
+            class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
             <div class="ms-2 ">
               <div class="fw-bold">{{ card.name }}</div>
               {{ card.text }}
@@ -146,10 +157,11 @@
           </div>
 
         </li>
-        <li class="mt-2 mb-2 d-flex list-group-item-action justify-content-between align-items-start text-white"
+        <li class="mt-2 mb-2 d-flex justify-content-between align-items-start text-white text-center"
           (click)="EditCard(1,2,4)">
-          <div href="#" class="d-flex flex-row bd-highlight align-items-start" aria-current="true">
-            <button type="button" class="btn btn-success bg-dark text-white btn-outline-light btn-lg">
+          <div href="#" class="d-flex flex-row bd-highlight align-items-start m-auto" aria-current="true">
+            <button type="button"
+              class="btn btn-success bg-dark text-white btn-outline-light btn-lg bg-gradient list-group-item-action">
               <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor"
                 class="bi bi-plus mx-auto" viewBox="0 0 16 16">
                 <path
@@ -161,13 +173,15 @@
       </div>
 
       <!--List5-->
-      <div href="#" class="list-group-item bg-dark text-white d-grid gap-1 rounded-bottom" aria-current="true"
-        *ngIf="item.listNumber == 5" cdkDropList>
-        <li cdkDrag
-          class="rounded border border-light list-group-item p-1"
-          *ngFor="let card of cardList5" (click)="EditCard(card.id, 1,5)" [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
+      <div href="#"
+        class="list-group-item list-group-item-action bg-dark text-white d-grid gap-1 rounded-bottom bg-gradient"
+        aria-current="true" *ngIf="item.listNumber == 5" cdkDropList>
+        <li cdkDrag class="rounded border border-light list-group-item p-1" *ngFor="let card of cardList5"
+          (click)="EditCard(card.id, 1,5)"
+          [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
 
-          <div class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
+          <div
+            class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
             <div class="ms-2 ">
               <div class="fw-bold">{{ card.name }}</div>
               {{ card.text }}
@@ -180,10 +194,11 @@
           </div>
 
         </li>
-        <li class="mt-2 mb-2 d-flex list-group-item-action justify-content-between align-items-start text-white"
+        <li class="mt-2 mb-2 d-flex justify-content-between align-items-start text-white text-center"
           (click)="EditCard(1,2,5)">
-          <div href="#" class="d-flex flex-row bd-highlight align-items-start" aria-current="true">
-            <button type="button" class="btn btn-success bg-dark text-white btn-outline-light btn-lg">
+          <div href="#" class="d-flex flex-row bd-highlight align-items-start m-auto" aria-current="true">
+            <button type="button"
+              class="btn btn-success bg-dark text-white btn-outline-light btn-lg bg-gradient list-group-item-action">
               <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor"
                 class="bi bi-plus mx-auto" viewBox="0 0 16 16">
                 <path
@@ -193,15 +208,17 @@
           </div>
         </li>
       </div>
-      
-      <!--List6-->
-      <div href="#" class="list-group-item bg-dark text-white d-grid gap-1 rounded-bottom" aria-current="true"
-        *ngIf="item.listNumber == 6" cdkDropList>
-        <li cdkDrag
-          class="rounded border border-light list-group-item p-1"
-          *ngFor="let card of cardList6" (click)="EditCard(card.id, 1,6)" [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
 
-          <div class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
+      <!--List6-->
+      <div href="#"
+        class="list-group-item list-group-item-action bg-dark text-white d-grid gap-1 rounded-bottom bg-gradient"
+        aria-current="true" *ngIf="item.listNumber == 6" cdkDropList>
+        <li cdkDrag class="rounded border border-light list-group-item p-1" *ngFor="let card of cardList6"
+          (click)="EditCard(card.id, 1,6)"
+          [ngClass]="{'bg-danger' : card.idTag == 1, 'bg-info' : card.idTag == 2, 'bg-warning' : card.idTag == 3, 'bg-success' : card.idTag == 4, 'bg-secondary' : card.idTag == 5, 'bg-transparent' : card.idTag == null}">
+
+          <div
+            class="rounded list-group-item bg-dark d-flex list-group-item-action justify-content-between text-white border border-light btn-outline-info align-items-start gap-1 m-0">
             <div class="ms-2 ">
               <div class="fw-bold">{{ card.name }}</div>
               {{ card.text }}
@@ -214,10 +231,11 @@
           </div>
 
         </li>
-        <li class="mt-2 mb-2 d-flex list-group-item-action justify-content-between align-items-start text-white"
+        <li class="mt-2 mb-2 d-flex justify-content-between align-items-start text-white text-center"
           (click)="EditCard(1,2,6)">
-          <div href="#" class="d-flex flex-row bd-highlight align-items-start" aria-current="true">
-            <button type="button" class="btn btn-success bg-dark text-white btn-outline-light btn-lg">
+          <div href="#" class="d-flex flex-row bd-highlight align-items-start m-auto" aria-current="true">
+            <button type="button"
+              class="btn btn-success bg-dark text-white btn-outline-light btn-lg bg-gradient list-group-item-action">
               <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor"
                 class="bi bi-plus mx-auto" viewBox="0 0 16 16">
                 <path
@@ -230,8 +248,9 @@
 
     </div>
   </div>
-  <div href="#" class="d-flex flex-row bd-highlight p-5 align-items-start" aria-current="true">
-    <button type="button" id="inputModal" class="btn btn-success bg-dark text-white btn-outline-light btn-lg btn-block"
+  <div href="#" class="d-flex  flex-row bd-highlight p-5 align-items-start " aria-current="true">
+    <button type="button" id="inputModal"
+      class="btn list-group-item-action btn-success bg-dark text-center text-white btn-outline-light btn-lg btn-block bg-gradient"
       data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="ModalCreate(1)">
       <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor" class="bi bi-plus mx-auto"
         viewBox="0 0 16 16">

@@ -103,4 +103,26 @@ export class ApiGerenciadorService {
   getCardList(userId: number, listNumber: number): Observable<CardModel[]> {
     return this.http.get<CardModel[]>(this.gerenciadorAPIUrl + `/CardLists/GetCardListByUserId/${userId}/${listNumber}`);
   }
+
+  //CARDS CHECKLIST
+  getCheck(): Observable<any[]> {
+    return this.http.get<any>(this.gerenciadorAPIUrl + '/CheckLists');
+  }
+
+  getCheckById(id: number): Observable<CardModel> {
+    return this.http.get<CardModel>(this.gerenciadorAPIUrl + `/CheckLists/${id}`);
+  }
+
+  addCheck(data: any): Observable<CardModel> {
+    debugger
+    return this.http.post<CardModel>(this.gerenciadorAPIUrl + '/CheckLists', data)
+  }
+
+  updateCheck(id: number, data: any) {
+    return this.http.put(this.gerenciadorAPIUrl + `/CheckLists/${id}`, data)
+  }
+
+  deleteCheck(id: number) {
+    return this.http.delete(this.gerenciadorAPIUrl + `/CheckLists/${id}`)
+  }
 }

@@ -1,3 +1,15 @@
-.list-group-item > li {
+.list-group-item>li {
     cursor: pointer;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.3;
+}
+
+div > li > div:hover {
+    opacity: 0.5;
 }

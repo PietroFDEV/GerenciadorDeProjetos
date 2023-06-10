@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GerenciadorDeProjetos;
 using GerenciadorDeProjetos.Data;
+using NuGet.Protocol;
 
 namespace GerenciadorDeProjetos.Controllers
 {
@@ -25,21 +26,46 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<List>>> GetList()
         {
-          if (_context.List == null)
-          {
-              return NotFound();
-          }
+            if (_context.List == null)
+            {
+                return NotFound();
+            }
             return await _context.List.ToListAsync();
+        }
+
+        //GET: api/Lists/user/5
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<IEnumerable<List>>> GetListUserId(int id)
+        {
+            if (_context.List == null)
+            {
+                return NotFound();
+            }
+            var lslists = await _context.List.Where(l => l.IdUser == id).ToListAsync();
+
+            lslists.ForEach(d =>
+            {
+                var cards = _context.CardList.Where(c => c.ListId == d.Id).ToList();
+                if (cards != null)
+                {
+                    cards.ForEach(m =>
+                    {
+                        d.CardList.Append(m);
+                    });
+                }
+            });
+
+            return lslists;
         }
 
         // GET: api/Lists/5
         [HttpGet("{id}")]
         public async Task<ActionResult<List>> GetList(int id)
         {
-          if (_context.List == null)
-          {
-              return NotFound();
-          }
+            if (_context.List == null)
+            {
+                return NotFound();
+            }
             var list = await _context.List.FindAsync(id);
 
             if (list == null)
@@ -55,12 +81,19 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutList(int id, List list)
         {
-            if (id != list.Id)
+            var entity = _context.List.Find(id);
+            if (entity == null)
             {
                 return BadRequest();
             }
 
-            _context.Entry(list).State = EntityState.Modified;
+            list.Id = entity.Id;
+            list.ListNumber = entity.ListNumber;
+            list.CardList = entity.CardList;
+            list.Active = entity.Active;
+            list.IdUser = entity.IdUser;
+
+            _context.List.Entry(entity).CurrentValues.SetValues(list);
 
             try
             {
@@ -86,10 +119,10 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpPost]
         public async Task<ActionResult<List>> PostList(List list)
         {
-          if (_context.List == null)
-          {
-              return Problem("Entity set 'DataContext.List'  is null.");
-          }
+            if (_context.List == null)
+            {
+                return Problem("Entity set 'DataContext.List'  is null.");
+            }
             _context.List.Add(list);
             await _context.SaveChangesAsync();
 
@@ -111,6 +144,35 @@ namespace GerenciadorDeProjetos.Controllers
             }
 
             _context.List.Remove(list);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/Lists/DeleteLists/5/1
+        [HttpDelete("DeleteLists/{listNumber}/{userId}")]
+        public async Task<IActionResult> DeleteListByUser(int listNumber, int userId)
+        {
+            if (_context.List == null)
+            {
+                return NotFound();
+            }
+            var list = _context.List.Where(d => d.ListNumber == listNumber && d.IdUser == userId).ToList();
+            if (list == null)
+            {
+                return NotFound();
+            }
+            list.ForEach(d => _context.List.Remove(d));
+            await _context.SaveChangesAsync();
+
+            var listUpdate = _context.List.Where(d => d.IdUser == userId).ToList();
+            listUpdate.ForEach(l =>
+            {
+                if (l.ListNumber > listNumber)
+                {
+                    l.ListNumber = (l.ListNumber - 1);
+                }
+            });
             await _context.SaveChangesAsync();
 
             return NoContent();

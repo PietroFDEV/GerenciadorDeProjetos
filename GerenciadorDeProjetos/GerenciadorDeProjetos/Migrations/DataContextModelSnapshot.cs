@@ -30,13 +30,22 @@ namespace GerenciadorDeProjetos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("CheckList")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Deadline")
+                    b.Property<DateTime?>("Deadline")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ListId")
+                    b.Property<int?>("IdTag")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ListId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ListNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -55,14 +64,38 @@ namespace GerenciadorDeProjetos.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("haveDeadLine")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ListId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("ListId");
 
                     b.ToTable("CardList");
+                });
+
+            modelBuilder.Entity("GerenciadorDeProjetos.CheckList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Check")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("IdCard")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CheckList");
                 });
 
             modelBuilder.Entity("GerenciadorDeProjetos.List", b =>
@@ -84,15 +117,13 @@ namespace GerenciadorDeProjetos.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int>("ListNumber")
+                        .HasColumnType("int");
+
                     b.Property<bool>("PriorityList")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("List");
                 });
@@ -125,27 +156,8 @@ namespace GerenciadorDeProjetos.Migrations
             modelBuilder.Entity("GerenciadorDeProjetos.CardList", b =>
                 {
                     b.HasOne("GerenciadorDeProjetos.List", null)
-                        .WithOne("CardList")
-                        .HasForeignKey("GerenciadorDeProjetos.CardList", "ListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GerenciadorDeProjetos.LoginUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("GerenciadorDeProjetos.List", b =>
-                {
-                    b.HasOne("GerenciadorDeProjetos.LoginUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
+                        .WithMany("CardList")
+                        .HasForeignKey("ListId");
                 });
 
             modelBuilder.Entity("GerenciadorDeProjetos.List", b =>

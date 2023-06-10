@@ -25,10 +25,10 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CardList>>> GetCardList()
         {
-          if (_context.CardList == null)
-          {
-              return NotFound();
-          }
+            if (_context.CardList == null)
+            {
+                return NotFound();
+            }
             return await _context.CardList.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CardList>> GetCardList(int id)
         {
-          if (_context.CardList == null)
-          {
-              return NotFound();
-          }
+            if (_context.CardList == null)
+            {
+                return NotFound();
+            }
             var cardList = await _context.CardList.FindAsync(id);
 
             if (cardList == null)
@@ -50,18 +50,29 @@ namespace GerenciadorDeProjetos.Controllers
             return cardList;
         }
 
-
         // PUT: api/CardLists/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCardList(int id, CardList cardList)
+        public async Task<IActionResult> PutCardList(int id, CardList cardList, bool haveDeadLine)
         {
-            if (id != cardList.Id)
+
+            var entity = _context.CardList.Find(id);
+            if (entity == null)
             {
                 return BadRequest();
             }
+            cardList.Id = entity.Id;
 
-            _context.Entry(cardList).State = EntityState.Modified;
+            if (haveDeadLine)
+                _context.CardList.Entry(entity).CurrentValues.SetValues(cardList);
+            else
+            {
+                cardList.Deadline = null;
+                _context.CardList.Entry(entity).CurrentValues.SetValues(cardList);
+
+            }
+
+
 
             try
             {
@@ -87,10 +98,11 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpPost]
         public async Task<ActionResult<CardList>> PostCardList(CardList cardList)
         {
-          if (_context.CardList == null)
-          {
-              return Problem("Entity set 'DataContext.CardList'  is null.");
-          }
+            if (_context.CardList == null)
+            {
+                return Problem("Entity set 'DataContext.CardList'  is null.");
+            }
+            cardList.CreateDate = DateTime.Now;
             _context.CardList.Add(cardList);
             await _context.SaveChangesAsync();
 
@@ -117,15 +129,45 @@ namespace GerenciadorDeProjetos.Controllers
             return NoContent();
         }
 
+        // DELETE: api/CardLists/DeleteCards/5/1
+        [HttpDelete("DeleteCards/{listNumber}/{IdUser}")]
+        public async Task<IActionResult> DeleteCards(int listNumber, int IdUser)
+        {
+            if (_context.CardList == null)
+            {
+                return NotFound();
+            }
+            var cardList = _context.CardList.Where(d => d.ListNumber == listNumber && d.UserId == IdUser).ToList();
+            if (cardList == null)
+            {
+                return NotFound();
+            }
+            cardList.ForEach(c => _context.CardList.Remove(c));
+            await _context.SaveChangesAsync();
+
+            var cardlistUpdate = _context.CardList.Where(d => d.UserId == IdUser).ToList();
+            cardlistUpdate.ForEach(c =>
+            {
+                if (c.ListNumber > listNumber)
+                {
+                    c.ListNumber = (c.ListNumber - 1);
+                }
+            });
+            await _context.SaveChangesAsync();
+
+
+            return NoContent();
+        }
+
         private bool CardListExists(int id)
         {
             return (_context.CardList?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        [HttpGet("GetCardListByUserId/{UserId}/{ListId}")]
-        public async Task<ActionResult<IEnumerable<CardList>>> GetCardListByUserId(int UserId, int ListId)
+        [HttpGet("GetCardListByUserId/{UserId}/{NumberList}")]
+        public ActionResult<IEnumerable<CardList>> GetCardListByUserId(int UserId, int NumberList)
         {
-            return await _context.CardList.Where(d => d.UserId == UserId && d.ListId == ListId).ToListAsync();
+            return _context.CardList.Where(d => d.UserId == UserId && d.ListNumber == NumberList).OrderByDescending(d => d.Deadline != null).ThenBy(d => d.Deadline).ThenBy(d => d.Id).ToList();
         }
     }
 }

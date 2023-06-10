@@ -1,4 +1,6 @@
-﻿namespace GerenciadorDeProjetos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GerenciadorDeProjetos
 {
     public class LoginUser
     {

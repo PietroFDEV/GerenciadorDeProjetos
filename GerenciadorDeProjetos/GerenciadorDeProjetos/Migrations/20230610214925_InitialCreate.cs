@@ -12,6 +12,38 @@ namespace GerenciadorDeProjetos.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "CheckList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdCard = table.Column<int>(type: "int", nullable: false),
+                    Check = table.Column<bool>(type: "bit", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CheckList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "List",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ListName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    PriorityList = table.Column<bool>(type: "bit", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    IdUser = table.Column<int>(type: "int", nullable: false),
+                    ListNumber = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_List", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "loginUsers",
                 columns: table => new
                 {
@@ -27,28 +59,6 @@ namespace GerenciadorDeProjetos.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "List",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ListName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    PriorityList = table.Column<bool>(type: "bit", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_List", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_List_loginUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "loginUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CardList",
                 columns: table => new
                 {
@@ -57,10 +67,14 @@ namespace GerenciadorDeProjetos.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Text = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Deadline = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Deadline = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Priority = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    ListId = table.Column<int>(type: "int", nullable: false)
+                    ListId = table.Column<int>(type: "int", nullable: true),
+                    ListNumber = table.Column<int>(type: "int", nullable: false),
+                    IdTag = table.Column<int>(type: "int", nullable: true),
+                    CheckList = table.Column<bool>(type: "bit", nullable: false),
+                    haveDeadLine = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,31 +83,13 @@ namespace GerenciadorDeProjetos.Migrations
                         name: "FK_CardList_List_ListId",
                         column: x => x.ListId,
                         principalTable: "List",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CardList_loginUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "loginUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CardList_ListId",
                 table: "CardList",
-                column: "ListId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CardList_UserId",
-                table: "CardList",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_List_UserId",
-                table: "List",
-                column: "UserId");
+                column: "ListId");
         }
 
         /// <inheritdoc />
@@ -103,10 +99,13 @@ namespace GerenciadorDeProjetos.Migrations
                 name: "CardList");
 
             migrationBuilder.DropTable(
-                name: "List");
+                name: "CheckList");
 
             migrationBuilder.DropTable(
                 name: "loginUsers");
+
+            migrationBuilder.DropTable(
+                name: "List");
         }
     }
 }

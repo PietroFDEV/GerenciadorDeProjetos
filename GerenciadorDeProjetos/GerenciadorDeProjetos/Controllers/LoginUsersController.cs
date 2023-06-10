@@ -26,10 +26,10 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LoginUser>>> GetloginUsers()
         {
-          if (_context.loginUsers == null)
-          {
-              return NotFound();
-          }
+            if (_context.loginUsers == null)
+            {
+                return NotFound();
+            }
             return await _context.loginUsers.ToListAsync();
         }
 
@@ -37,10 +37,10 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<LoginUser>> GetLoginUser(int id)
         {
-          if (_context.loginUsers == null)
-          {
-              return NotFound();
-          }
+            if (_context.loginUsers == null)
+            {
+                return NotFound();
+            }
             var loginUser = await _context.loginUsers.FindAsync(id);
 
             if (loginUser == null)
@@ -52,9 +52,18 @@ namespace GerenciadorDeProjetos.Controllers
         }
 
         [HttpGet("{login}/{pass}")]
-        public bool ExistsUser(string login, string pass)
+        public int ExistsUser(string login, string pass)
         {
-            return (_context.loginUsers?.Any(e => e.UserLogin == login && e.UserPass == pass)).GetValueOrDefault();
+            if ((_context.loginUsers?.Any(e => e.UserLogin == login && e.UserPass == pass)).GetValueOrDefault())
+            {
+                var idUser = _context.loginUsers
+                     .Where(u => u.UserLogin == login && u.UserPass == pass)
+                     .Select(u => u).FirstOrDefault();
+
+                return Convert.ToInt32(idUser.Id);
+            }
+
+            return 0;
         }
 
         // PUT: api/LoginUsers/5
@@ -93,10 +102,10 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpPost]
         public async Task<ActionResult<LoginUser>> PostLoginUser(LoginUser loginUser)
         {
-          if (_context.loginUsers == null)
-          {
-              return Problem("Entity set 'DataContext.loginUsers'  is null.");
-          }
+            if (_context.loginUsers == null)
+            {
+                return Problem("Entity set 'DataContext.loginUsers'  is null.");
+            }
             _context.loginUsers.Add(loginUser);
             await _context.SaveChangesAsync();
 
@@ -127,5 +136,6 @@ namespace GerenciadorDeProjetos.Controllers
         {
             return (_context.loginUsers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
     }
 }

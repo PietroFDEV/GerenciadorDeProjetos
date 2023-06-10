@@ -21,7 +21,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     CardsComponent,
     ModalCardComponent
-
   ],
   imports: [
     BrowserModule,

@@ -28,21 +28,21 @@ namespace GerenciadorDeProjetos.Controllers
         }
 
         // GET: CheckLists/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IEnumerable<CardList> Details(int? id)
         {
             if (id == null || _context.CheckList == null)
             {
                 return NotFound();
             }
 
-            var checkList = await _context.CheckList
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var checkList = _context.CheckList
+                .Where(m => m.IdCard == id).ToList();
             if (checkList == null)
             {
                 return NotFound();
             }
 
-            return View(checkList);
+            return checkList;
         }
 
         // GET: CheckLists/Create

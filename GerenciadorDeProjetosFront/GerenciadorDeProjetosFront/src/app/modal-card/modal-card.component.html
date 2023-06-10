@@ -99,6 +99,16 @@
             [(ngModel)]="card.deadline">
           </div>
 
+          <div class="form-outline form-white mb-1">
+            <label class="mr-1 form-label m-2">CheckList:</label>
+            <input type="radio" [value]="true" [(ngModel)]="card.checkList" />
+            <label class="form-label mr-2">Sim</label>
+            <input type="radio" [value]="false" [(ngModel)]="card.checkList" />
+            <label class="form-label mr-2">Não</label>
+          </div>
+
+
+
           <div *ngIf="infNome">
             <p style="color: red;">Informe o Nome</p>
           </div>
@@ -108,6 +118,8 @@
           <div *ngIf="infData">
             <p style="color: red;">Informe o Data</p>
           </div>
+
+
 
         </div>
       </div>
@@ -122,3 +134,15 @@
     
   </div>
 </div>
+
+<table *ngIf="card.checkList">
+  <tr>
+    <th>Check</th>
+    <th>Texto</th>
+  </tr>
+  <tr *ngFor="let check of checkList">
+    <td>            
+      <input type="radio" [value]="true" [(ngModel)]="card.checkList" />
+    </td>
+  </tr>
+</table>

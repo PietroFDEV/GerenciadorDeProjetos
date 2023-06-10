@@ -3,6 +3,7 @@ import { ApiGerenciadorService } from '../api-gerenciador.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { CardModel } from 'src/model/cardModel';
+import { CheckListModel } from 'src/model/checkListModel';
 
 @Component({
   selector: 'app-modal-card',
@@ -27,6 +28,7 @@ export class ModalCardComponent implements OnInit {
   infText: boolean = false;
   infData: boolean = false;
   idTag!: number;
+  checkList: CheckListModel[] = [];
 
   ngOnInit(): void {
     this.acRoute.params.subscribe(d => {
@@ -43,6 +45,10 @@ export class ModalCardComponent implements OnInit {
         this.service.getCardsById(this.cardId).subscribe(d => this.card = d);
       }
     });
+
+    if(this.card.checkList){
+      this.service.getCheckByIdCard(this.cardId).subscribe(d =>  d);
+    }
   }
 
   public Voltar() {
@@ -74,6 +80,8 @@ export class ModalCardComponent implements OnInit {
           this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
       });
     }
+
+
   }
 
   public SalvarEdit() {

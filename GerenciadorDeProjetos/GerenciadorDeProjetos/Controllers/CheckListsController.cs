@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GerenciadorDeProjetos;
 using GerenciadorDeProjetos.Data;
 
 namespace GerenciadorDeProjetos.Controllers
 {
-    public class CheckListsController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CheckListsController : ControllerBase
     {
         private readonly DataContext _context;
 
@@ -19,145 +21,98 @@ namespace GerenciadorDeProjetos.Controllers
             _context = context;
         }
 
-        // GET: CheckLists
-        public async Task<IActionResult> Index()
+        // GET: api/CheckLists
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CheckList>>> GetCheckList()
         {
-              return _context.CheckList != null ? 
-                          View(await _context.CheckList.ToListAsync()) :
-                          Problem("Entity set 'DataContext.CheckList'  is null.");
+          if (_context.CheckList == null)
+          {
+              return NotFound();
+          }
+            return await _context.CheckList.ToListAsync();
         }
 
-        // GET: CheckLists/Details/5
-        public IEnumerable<CardList> Details(int? id)
+        // GET: api/CheckLists/5
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<CheckList>> GetCheckList(int id)
         {
-            if (id == null || _context.CheckList == null)
-            {
-                return NotFound();
-            }
+          if (_context.CheckList == null)
+          {
+              return NotFound();
+          }
 
-            var checkList = _context.CheckList
-                .Where(m => m.IdCard == id).ToList();
-            if (checkList == null)
-            {
-                return NotFound();
-            }
-
-            return checkList;
+            return _context.CheckList.Where(c => c.IdCard == id).ToList();
         }
 
-        // GET: CheckLists/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CheckLists/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdCard,Check,Text")] CheckList checkList)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(checkList);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(checkList);
-        }
-
-        // GET: CheckLists/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.CheckList == null)
-            {
-                return NotFound();
-            }
-
-            var checkList = await _context.CheckList.FindAsync(id);
-            if (checkList == null)
-            {
-                return NotFound();
-            }
-            return View(checkList);
-        }
-
-        // POST: CheckLists/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdCard,Check,Text")] CheckList checkList)
+        // PUT: api/CheckLists/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCheckList(int id, CheckList checkList)
         {
             if (id != checkList.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            if (ModelState.IsValid)
+            _context.Entry(checkList).State = EntityState.Modified;
+
+            try
             {
-                try
-                {
-                    _context.Update(checkList);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CheckListExists(checkList.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
             }
-            return View(checkList);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CheckListExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // GET: CheckLists/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // POST: api/CheckLists
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<CheckList>> PostCheckList(CheckList checkList)
         {
-            if (id == null || _context.CheckList == null)
+          if (_context.CheckList == null)
+          {
+              return Problem("Entity set 'DataContext.CheckList'  is null.");
+          }
+            _context.CheckList.Add(checkList);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetCheckList", new { id = checkList.Id }, checkList);
+        }
+
+        // DELETE: api/CheckLists/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCheckList(int id)
+        {
+            if (_context.CheckList == null)
             {
                 return NotFound();
             }
-
-            var checkList = await _context.CheckList
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var checkList = await _context.CheckList.FindAsync(id);
             if (checkList == null)
             {
                 return NotFound();
             }
 
-            return View(checkList);
-        }
-
-        // POST: CheckLists/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.CheckList == null)
-            {
-                return Problem("Entity set 'DataContext.CheckList'  is null.");
-            }
-            var checkList = await _context.CheckList.FindAsync(id);
-            if (checkList != null)
-            {
-                _context.CheckList.Remove(checkList);
-            }
-            
+            _context.CheckList.Remove(checkList);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return NoContent();
         }
 
         private bool CheckListExists(int id)
         {
-          return (_context.CheckList?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.CheckList?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

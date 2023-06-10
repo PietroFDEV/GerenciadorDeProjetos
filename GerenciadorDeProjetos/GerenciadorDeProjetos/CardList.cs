@@ -18,6 +18,7 @@ namespace GerenciadorDeProjetos
         public int ListNumber { get; set; }
         public int? IdTag { get; set; }
         public bool CheckList { get; set; }
+        public bool haveDeadLine { get; set; }
 
     }
 }

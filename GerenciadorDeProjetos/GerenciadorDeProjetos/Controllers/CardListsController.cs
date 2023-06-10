@@ -53,7 +53,7 @@ namespace GerenciadorDeProjetos.Controllers
         // PUT: api/CardLists/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCardList(int id, CardList cardList)
+        public async Task<IActionResult> PutCardList(int id, CardList cardList, bool haveDeadLine)
         {
 
             var entity = _context.CardList.Find(id);
@@ -61,10 +61,17 @@ namespace GerenciadorDeProjetos.Controllers
             {
                 return BadRequest();
             }
-
             cardList.Id = entity.Id;
 
-            _context.CardList.Entry(entity).CurrentValues.SetValues(cardList);
+            if (haveDeadLine)
+                _context.CardList.Entry(entity).CurrentValues.SetValues(cardList);
+            else
+            {
+                cardList.Deadline = null;
+                _context.CardList.Entry(entity).CurrentValues.SetValues(cardList);
+
+            }
+
 
 
             try
@@ -160,7 +167,7 @@ namespace GerenciadorDeProjetos.Controllers
         [HttpGet("GetCardListByUserId/{UserId}/{NumberList}")]
         public ActionResult<IEnumerable<CardList>> GetCardListByUserId(int UserId, int NumberList)
         {
-            return _context.CardList.Where(d => d.UserId == UserId && d.ListNumber == NumberList).OrderByDescending(d => d.Deadline != null).ThenBy(d => d.Deadline).ToList();
+            return _context.CardList.Where(d => d.UserId == UserId && d.ListNumber == NumberList).OrderByDescending(d => d.Deadline != null).ThenBy(d => d.Deadline).ThenBy(d => d.Id).ToList();
         }
     }
 }

@@ -64,6 +64,9 @@ namespace GerenciadorDeProjetos.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("haveDeadLine")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ListId");

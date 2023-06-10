@@ -73,7 +73,8 @@ namespace GerenciadorDeProjetos.Migrations
                     ListId = table.Column<int>(type: "int", nullable: true),
                     ListNumber = table.Column<int>(type: "int", nullable: false),
                     IdTag = table.Column<int>(type: "int", nullable: true),
-                    CheckList = table.Column<bool>(type: "bit", nullable: false)
+                    CheckList = table.Column<bool>(type: "bit", nullable: false),
+                    haveDeadLine = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

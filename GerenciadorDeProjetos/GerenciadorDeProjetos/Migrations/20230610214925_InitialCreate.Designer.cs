@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciadorDeProjetos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230609000022_InitialCreate")]
+    [Migration("20230610214925_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -66,6 +66,9 @@ namespace GerenciadorDeProjetos.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("haveDeadLine")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

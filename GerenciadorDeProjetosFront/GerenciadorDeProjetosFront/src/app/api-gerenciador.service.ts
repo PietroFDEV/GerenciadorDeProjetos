@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CardModel } from 'src/model/cardModel';
+import { CheckListModel } from 'src/model/checkListModel';
 import { ListaModel } from 'src/model/listaModel';
 import { loginModel } from 'src/model/loginModel';
 
@@ -113,13 +114,12 @@ export class ApiGerenciadorService {
   //   return this.http.get<CardModel>(this.gerenciadorAPIUrl + `/CheckLists/${id}`);
   // }
 
-  getCheckByIdCard(id: number): Observable<CardModel[]> {
-    return this.http.get<CardModel[]>(this.gerenciadorAPIUrl + `/CheckLists/${id}`);
+  getCheckByIdCard(id: number): Observable<CheckListModel[]> {
+    return this.http.get<CheckListModel[]>(this.gerenciadorAPIUrl + `/CheckLists/${id}`);
   }
 
-  addCheck(data: any): Observable<CardModel> {
-    debugger
-    return this.http.post<CardModel>(this.gerenciadorAPIUrl + '/CheckLists', data)
+  addCheck(data: any): Observable<CheckListModel> {
+    return this.http.post<CheckListModel>(this.gerenciadorAPIUrl + '/CheckLists', data)
   }
 
   updateCheck(id: number, data: any) {

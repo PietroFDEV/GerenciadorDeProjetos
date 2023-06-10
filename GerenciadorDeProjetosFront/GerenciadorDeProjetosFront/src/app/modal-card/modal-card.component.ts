@@ -29,6 +29,7 @@ export class ModalCardComponent implements OnInit {
   infData: boolean = false;
   idTag!: number;
   checkList: CheckListModel[] = [];
+  textoCheck: string = "";
 
   ngOnInit(): void {
     this.acRoute.params.subscribe(d => {
@@ -38,7 +39,6 @@ export class ModalCardComponent implements OnInit {
       this.userId = JSON.parse(d['userId']);
 
 
-
       if (this.numeroCategoria == 2) {
         this.priority = false;
       } else if (this.numeroCategoria == 1) {
@@ -46,8 +46,8 @@ export class ModalCardComponent implements OnInit {
       }
     });
 
-    if(this.card.checkList){
-      this.service.getCheckByIdCard(this.cardId).subscribe(d =>  d);
+    if (this.card.checkList) {
+      this.service.getCheckByIdCard(this.cardId).subscribe(d => this.checkList = d);
     }
   }
 
@@ -73,7 +73,9 @@ export class ModalCardComponent implements OnInit {
         deadline: this.deadline,
         priority: this.priority,
         userID: this.userId,
-        listNumber: this.numeroLista
+        listNumber: this.numeroLista,
+        checkList: false,
+        haveDeadLine: false
       };
       this.service.addCard(Card).subscribe(r => {
         if (r != null)
@@ -82,6 +84,28 @@ export class ModalCardComponent implements OnInit {
     }
 
 
+  }
+
+  public ActiveCheckList() {
+    this.service.getCheckByIdCard(this.cardId).subscribe(d => this.checkList = d);
+  }
+
+  public CreateCheck() {
+    var Check = {
+      text: this.textoCheck,
+      check: false,
+      idCard: this.cardId
+    }
+    
+    this.service.addCheck(Check).subscribe(d => {
+      window.location.reload();
+    });
+  }
+
+  public ApagarCheck(idCard: number) {
+    this.service.deleteCheck(idCard).subscribe(d => {
+      window.location.reload();
+    });
   }
 
   public SalvarEdit() {
@@ -104,7 +128,9 @@ export class ModalCardComponent implements OnInit {
           userID: this.userId,
           deadline: this.card.deadline,
           listNumber: this.numeroLista,
-          idTag: null
+          idTag: null,
+          checkList: this.card.checkList,
+          haveDeadLine: this.card.haveDeadline
         };
         this.service.updateCard(this.cardId, Card).subscribe(r => {
           this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
@@ -117,7 +143,8 @@ export class ModalCardComponent implements OnInit {
           userID: this.userId,
           deadline: this.card.deadline,
           listNumber: this.numeroLista,
-          idTag: this.card.idTag
+          idTag: this.card.idTag,
+          haveDeadLine: this.card.haveDeadline
         };
         this.service.updateCard(this.cardId, CardB).subscribe(r => {
           this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);

@@ -1,148 +1,176 @@
-<div class="p-1 bd-highlight align-items-start" *ngIf="numeroCategoria != 0">
-  <div class="modal-dialog">
-    <!--CARD-->
-    <div class="modal-content bg-dark text-white" *ngIf="numeroCategoria == 2">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Crie seu Card</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-        <div class="mb-md-5 mt-md-4 pb-5">
-
-          <div class="form-outline form-white mb-4">
-            <input type="email" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="cardName"
-              [ngModelOptions]="{standalone: true}" required/>
-            <label class="form-label" for="typeEmailX">Nome Card</label>
-          </div>
-
-          <div class="form-outline form-white mb-4">
-            <textarea type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="cardText"
-              [ngModelOptions]="{standalone: true}" required></textarea>
-            <label class="form-label" for="typeEmailX">Texto do Card</label>
-          </div>
-
-          <div class="form-outline form-white mb-4">
-            <label class="mr-1">Prioridade</label>
-            <input type="radio" [value]="true" [(ngModel)]="priority" />
-            <label class="form-label">Sim</label>
-            <input type="radio" [value]="false" [(ngModel)]="priority" />
-            <label class="form-label">Não</label>
-          </div>
-
-          <div *ngIf="priority">
-            <input type="date"
-            [(ngModel)]="deadline">
-          </div>
-
-          <div *ngIf="infNome">
-            <p style="color: red;">Informe o Nome</p>
-          </div>
-          <div *ngIf="infText">
-            <p style="color: red;">Informe o Texto</p>
-          </div>
-          <div *ngIf="infData">
-            <p style="color: red;">Informe o Data</p>
-          </div>
-
+<div class="d-flex justify-content-around w-75 m-auto">
+  <div class="p-1 bd-highlight align-items-start w-75" *ngIf="numeroCategoria != 0">
+    <div class="modal-dialog">
+      <!--CARD-->
+      <div class="modal-content bg-dark text-white" *ngIf="numeroCategoria == 2">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Crie seu Card</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="Voltar()">Voltar</button>
-        <button type="button" class="btn btn-primary" (click)="CreateCard()">Salvar</button>
-      </div>
-    </div>
-    <!--EDIT CARD-->
-    <div class="modal-content bg-dark text-white" *ngIf="numeroCategoria == 1">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edite seu Card</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
+        <div class="modal-body">
 
-        <div class="mb-md-5 mt-md-4 pb-5">
+          <div class="mb-md-5 mt-md-4 pb-5">
 
-          <div class="form-outline form-white mb-4">
-            <input type="email" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="card.name"
-              [ngModelOptions]="{standalone: true}" />
-            <label class="form-label" for="typeEmailX" required>Nome Card</label>
+            <div class="form-outline form-white mb-4">
+              <input type="email" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="cardName"
+                [ngModelOptions]="{standalone: true}" required />
+              <label class="form-label" for="typeEmailX">Nome Card</label>
+            </div>
+
+            <div class="form-outline form-white mb-4">
+              <textarea type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="cardText"
+                [ngModelOptions]="{standalone: true}" required></textarea>
+              <label class="form-label" for="typeEmailX">Texto do Card</label>
+            </div>
+
+            <div class="form-outline form-white mb-4">
+              <label class="mr-1">Prioridade</label>
+              <input type="radio" [value]="true" [(ngModel)]="priority" />
+              <label class="form-label">Sim</label>
+              <input type="radio" [value]="false" [(ngModel)]="priority" />
+              <label class="form-label">Não</label>
+            </div>
+
+            <div *ngIf="priority">
+              <input type="date" [(ngModel)]="deadline">
+            </div>
+
+            <div *ngIf="infNome">
+              <p style="color: red;">Informe o Nome</p>
+            </div>
+            <div *ngIf="infText">
+              <p style="color: red;">Informe o Texto</p>
+            </div>
+            <div *ngIf="infData">
+              <p style="color: red;">Informe o Data</p>
+            </div>
+
           </div>
-
-          <div class="form-outline form-white mb-4">
-            <textarea type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="card.text"
-              [ngModelOptions]="{standalone: true}" required></textarea>
-            <label class="form-label" for="typeEmailX">Texto do Card</label>
-          </div>
-
-          <div class="form-outline form-white mb-1">
-            <select class="form-control form-select-sm w-50" [(ngModel)]="card.idTag">
-              <option [value]="0" >Nenhum</option>
-              <option [value]="1">Revisado</option>
-              <option [value]="2">Priorizado</option>
-              <option [value]="3">Processamento</option>
-              <option [value]="4">Finalizado</option>
-              <option [value]="5">Descartado</option>
-            </select>
-            <label class="form-label" for="typeEmailX">Categorias</label>
-          </div>
-
-          <div class="form-outline form-white mb-1">
-            <label class="mr-1 form-label m-2">Prioridade:</label>
-            <input type="radio" [value]="true" [(ngModel)]="card.priority" />
-            <label class="form-label mr-2">Sim</label>
-            <input type="radio" [value]="false" [(ngModel)]="card.priority" />
-            <label class="form-label mr-2">Não</label>
-          </div>
-
-          <div *ngIf="card.priority">
-            <input type="date"
-            [(ngModel)]="card.deadline">
-          </div>
-
-          <div class="form-outline form-white mb-1">
-            <label class="mr-1 form-label m-2">CheckList:</label>
-            <input type="radio" [value]="true" [(ngModel)]="card.checkList" />
-            <label class="form-label mr-2">Sim</label>
-            <input type="radio" [value]="false" [(ngModel)]="card.checkList" />
-            <label class="form-label mr-2">Não</label>
-          </div>
-
-
-
-          <div *ngIf="infNome">
-            <p style="color: red;">Informe o Nome</p>
-          </div>
-          <div *ngIf="infText">
-            <p style="color: red;">Informe o Texto</p>
-          </div>
-          <div *ngIf="infData">
-            <p style="color: red;">Informe o Data</p>
-          </div>
-
-
-
         </div>
-      </div>
-      <div class="modal-footer d-flex flex-row justify-content-between align-content-center">
-        <button type="button" class="btn btn-danger" (click)="ApagarCard()">Apagar</button>
-        <div class="gap-2 d-flex flex-row">
+        <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="Voltar()">Voltar</button>
-          <button type="button" class="btn btn-primary" (click)="SalvarEdit()">Salvar</button>
+          <button type="button" class="btn btn-primary" (click)="CreateCard()">Salvar</button>
+        </div>
+      </div>
+      <!--EDIT CARD-->
+      <div class="modal-content bg-dark text-white" *ngIf="numeroCategoria == 1">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edite seu Card</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="mb-md-5 mt-md-4 pb-5">
+
+            <div class="form-outline form-white mb-4">
+              <input type="email" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="card.name"
+                [ngModelOptions]="{standalone: true}" />
+              <label class="form-label" for="typeEmailX" required>Nome Card</label>
+            </div>
+
+            <div class="form-outline form-white mb-4">
+              <textarea type="text" id="typeEmailX" class="form-control form-control-lg" [(ngModel)]="card.text"
+                [ngModelOptions]="{standalone: true}" required></textarea>
+              <label class="form-label" for="typeEmailX">Texto do Card</label>
+            </div>
+
+            <div class="form-outline form-white mb-1">
+              <select class="form-control form-select-sm w-50" [(ngModel)]="card.idTag">
+                <option [value]="0">Nenhum</option>
+                <option [value]="1">Revisado</option>
+                <option [value]="2">Priorizado</option>
+                <option [value]="3">Processamento</option>
+                <option [value]="4">Finalizado</option>
+                <option [value]="5">Descartado</option>
+              </select>
+              <label class="form-label" for="typeEmailX">Categorias</label>
+            </div>
+
+            <div class="form-outline form-white mb-1">
+              <label class="mr-1 form-label m-2">Prioridade:</label>
+              <input type="radio" [(ngModel)]="card.priority" [value]="true" />
+              <label class="form-label mr-2">Sim</label>
+              <input type="radio" [(ngModel)]="card.priority" [value]="false" />
+              <label class="form-label mr-2">Não</label>
+            </div>
+
+            <div *ngIf="card.priority" class="mb-1">
+              <input type="date" [(ngModel)]="card.deadline">
+            </div>
+
+            <div class="form-outline form-white">
+              <label class="mr-1 form-label m-2">CheckList:</label>
+              <input type="radio" [(ngModel)]="card.checkList" [value]="true" (click)="ActiveCheckList()" />
+              <label class="form-label mr-2">Sim</label>
+              <input type="radio" [(ngModel)]="card.checkList" [value]="false" />
+              <label class="form-label mr-2">Não</label>
+            </div>
+
+
+
+            <div *ngIf="infNome">
+              <p style="color: red;">Informe o Nome</p>
+            </div>
+            <div *ngIf="infText">
+              <p style="color: red;">Informe o Texto</p>
+            </div>
+            <div *ngIf="infData">
+              <p style="color: red;">Informe o Data</p>
+            </div>
+
+
+
+          </div>
+        </div>
+        <div class="modal-footer d-flex flex-row justify-content-between align-content-center">
+          <button type="button" class="btn btn-danger" (click)="ApagarCard()">Apagar</button>
+          <div class="gap-2 d-flex flex-row">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="Voltar()">Voltar</button>
+            <button type="button" class="btn btn-primary" (click)="SalvarEdit()">Salvar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="p-1 bd-highlight align-items-start  w-75" *ngIf="numeroCategoria == 1 && this.card.checkList">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-body text-center">
+
+          <table class="w-100 mb-2">
+            <!-- <tr>
+              <th>Check</th>
+              <th>Texto</th>
+              <th class="md-2">Apagar</th>
+            </tr> -->
+            <tr *ngFor="let check of checkList">
+              <td>
+                <input type="checkbox" ng-model="card.checkList" />
+              </td>
+              <td>
+                {{check.text}}
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger" (click)="ApagarCheck(check.id)">Apaga</button>
+              </td>
+            </tr>
+          </table>
+
+          <input type="text" class="form-control form-control-sm mb-3" [(ngModel)]="textoCheck" [ngModelOptions]="{standalone: true}"/>
+
+          <button type="button"
+          class="btn btn-success bg-dark text-white btn-outline-light btn-lg bg-gradient list-group-item-action text-center" (click)="CreateCheck()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="10%" height="10%" fill="currentColor"
+            class="bi bi-plus mx-auto" viewBox="0 0 16 16">
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+          </svg>
+        </button>
         </div>
       </div>
     </div>
-    
   </div>
 </div>
-
-<table *ngIf="card.checkList">
-  <tr>
-    <th>Check</th>
-    <th>Texto</th>
-  </tr>
-  <tr *ngFor="let check of checkList">
-    <td>            
-      <input type="radio" [value]="true" [(ngModel)]="card.checkList" />
-    </td>
-  </tr>
-</table>

@@ -63,7 +63,7 @@ namespace GerenciadorDeProjetos.Controllers
             }
             cardList.Id = entity.Id;
 
-            if (haveDeadLine)
+            if (cardList.haveDeadLine)
                 _context.CardList.Entry(entity).CurrentValues.SetValues(cardList);
             else
             {

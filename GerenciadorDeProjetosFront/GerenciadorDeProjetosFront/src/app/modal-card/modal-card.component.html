@@ -86,24 +86,21 @@
               <label class="form-label" for="typeEmailX">Categorias</label>
             </div>
 
-            <div class="form-outline form-white mb-1">
+            <div class="form-outline form-white mb-1" >
               <label class="mr-1 form-label m-2">Prioridade:</label>
-              <input type="radio" [(ngModel)]="card.priority" [value]="true" />
-              <label class="form-label mr-2">Sim</label>
-              <input type="radio" [(ngModel)]="card.priority" [value]="false" />
-              <label class="form-label mr-2">Não</label>
+
+              <input type="checkbox" [(ngModel)]="card.priority" />
             </div>
 
             <div *ngIf="card.priority" class="mb-1">
-              <input type="date" [(ngModel)]="card.deadline">
+              <input type="datetime-local" [(ngModel)]="card.deadline">
             </div>
 
             <div class="form-outline form-white">
               <label class="mr-1 form-label m-2">CheckList:</label>
-              <input type="radio" [(ngModel)]="card.checkList" [value]="true" (click)="ActiveCheckList()" />
-              <label class="form-label mr-2">Sim</label>
-              <input type="radio" [(ngModel)]="card.checkList" [value]="false" />
-              <label class="form-label mr-2">Não</label>
+
+              <input type="checkbox" [(ngModel)]="card.checkList" />
+
             </div>
 
 
@@ -141,11 +138,7 @@
         <div class="modal-body text-center">
 
           <table class="w-100 mb-2">
-            <!-- <tr>
-              <th>Check</th>
-              <th>Texto</th>
-              <th class="md-2">Apagar</th>
-            </tr> -->
+
             <tr *ngFor="let check of checkList">
               <td>
                 <input type="checkbox" ng-model="card.checkList" />

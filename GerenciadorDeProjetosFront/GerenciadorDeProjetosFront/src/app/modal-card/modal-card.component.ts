@@ -46,9 +46,7 @@ export class ModalCardComponent implements OnInit {
       }
     });
 
-    if (this.card.checkList) {
       this.service.getCheckByIdCard(this.cardId).subscribe(d => this.checkList = d);
-    }
   }
 
   public Voltar() {
@@ -59,7 +57,6 @@ export class ModalCardComponent implements OnInit {
     this.infNome = false;
     this.infText = false;
     this.infData = false;
-
     if (this.cardName == "") {
       this.infNome = true;
     } else if (this.cardText == "") {
@@ -98,13 +95,15 @@ export class ModalCardComponent implements OnInit {
     }
     
     this.service.addCheck(Check).subscribe(d => {
-      window.location.reload();
+      this.service.getCheckByIdCard(this.cardId).subscribe(x => this.checkList = x);
     });
+
+    this.textoCheck = "";
   }
 
   public ApagarCheck(idCard: number) {
     this.service.deleteCheck(idCard).subscribe(d => {
-      window.location.reload();
+      this.service.getCheckByIdCard(this.cardId).subscribe(x => this.checkList = x);
     });
   }
 
@@ -112,6 +111,7 @@ export class ModalCardComponent implements OnInit {
     this.infNome = false;
     this.infText = false;
     this.infData = false;
+    debugger
 
     if (this.card.name == "") {
       this.infNome = true;
@@ -130,7 +130,7 @@ export class ModalCardComponent implements OnInit {
           listNumber: this.numeroLista,
           idTag: null,
           checkList: this.card.checkList,
-          haveDeadLine: this.card.haveDeadline
+          haveDeadLine: this.card.priority
         };
         this.service.updateCard(this.cardId, Card).subscribe(r => {
           this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
@@ -144,7 +144,7 @@ export class ModalCardComponent implements OnInit {
           deadline: this.card.deadline,
           listNumber: this.numeroLista,
           idTag: this.card.idTag,
-          haveDeadLine: this.card.haveDeadline
+          haveDeadLine: this.card.priority
         };
         this.service.updateCard(this.cardId, CardB).subscribe(r => {
           this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);

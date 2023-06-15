@@ -141,7 +141,7 @@
 
             <tr *ngFor="let check of checkList">
               <td>
-                <input type="checkbox" ng-model="card.checkList" />
+                <input type="checkbox" [(ngModel)]="check.check" (change)="AtualizarCheck(check)"/>
               </td>
               <td>
                 {{check.text}}

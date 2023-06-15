@@ -83,6 +83,10 @@ export class ModalCardComponent implements OnInit {
 
   }
 
+  // public SalvarCheck(checkId: number, bool: boolean) {
+  //   this.service.updateCheck(checkId, bool).subscribe(x => x);
+  // }
+
   public ActiveCheckList() {
     this.service.getCheckByIdCard(this.cardId).subscribe(d => this.checkList = d);
   }
@@ -107,11 +111,26 @@ export class ModalCardComponent implements OnInit {
     });
   }
 
+  public AtualizarCheck(check: CheckListModel){
+    var checkbyId = {
+      id: check.id,
+      text: check.text,
+      check: check.check,
+      idCard: check.idCard
+    }
+    this.service.updateCheck(check.id, checkbyId).subscribe(d => {
+      this.checkList = [];
+      this.service.getCheckByIdCard(this.cardId).subscribe(d => this.checkList = d);
+    });
+  }
+
   public SalvarEdit() {
     this.infNome = false;
     this.infText = false;
     this.infData = false;
-    debugger
+
+    this.service.deleteCheckByCard(this.cardId, this.cardId);
+    this.checkList.forEach(d => this.service.addCheck(d));
 
     if (this.card.name == "") {
       this.infNome = true;
@@ -150,6 +169,7 @@ export class ModalCardComponent implements OnInit {
           this.route.navigate(['/gerenciador-home/' + this.userId, { iduser: this.userId }]);
         });
       }
+
 
     }
   }

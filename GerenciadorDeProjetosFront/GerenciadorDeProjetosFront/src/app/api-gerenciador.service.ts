@@ -121,11 +121,15 @@ export class ApiGerenciadorService {
     return this.http.post<CheckListModel>(this.gerenciadorAPIUrl + '/CheckLists', data)
   }
 
-  updateCheck(id: number, data: any) {
-    return this.http.put(this.gerenciadorAPIUrl + `/CheckLists/${id}`, data)
+  updateCheck(id: number, check: CheckListModel) {
+    return this.http.put(this.gerenciadorAPIUrl + `/CheckLists/${id}`, check)
   }
 
   deleteCheck(id: number) {
     return this.http.delete(this.gerenciadorAPIUrl + `/CheckLists/${id}`)
+  }
+
+  deleteCheckByCard(id: number, id2: number) {
+    return this.http.delete(this.gerenciadorAPIUrl + `/CheckLists/${id}/${id2}`)
   }
 }
